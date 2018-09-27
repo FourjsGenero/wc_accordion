@@ -73,7 +73,7 @@
       </VirtualFolder>
       <File compilerOptions="--build-doc" excludeFromLink="true" filePath="overview.4gl"/>
     </Library>
-    <Application binaryName="wc_test" dependencies="14000,1986" id="18736" label="wc_test">
+    <Application binaryName="wc_test" dependencies="14000,1986,-2091670436" id="18736" label="wc_test">
       <VirtualFolder label="src">
         <VirtualFolder label="accordion">
           <File excludeFromLink="true" filePath="src/test_accordion.4gl"/>
