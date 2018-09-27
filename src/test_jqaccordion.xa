@@ -1,0 +1,4 @@
+<?xml version='1.0' encoding='ASCII'?>
+<api_class name="test_jqaccordion" package="src" top="../" next="test_treecordion" prev="test_accordion">
+  <function name="Test"/>
+</api_class>

@@ -1,0 +1,53 @@
+layout (text="TreeCordion")
+  hbox
+    group(text="Navigate")
+      grid
+        {
+        [w01                               ]
+        [                                  ]
+        [                                  ]
+        [                                  ]
+        [                                  ]
+        [                                  ]
+        }
+      end --grid
+    end --group
+    group(text="Item")
+      grid
+        {
+        ID            [f01   ]
+        Key           [f02                 ]
+        Text          [f03                                    ]
+        Image         [f04                                    ] 
+        Open Icon     [f05                                    ]
+        Closed Icon   [f06                                    ]
+        State         [f07          ]
+        
+        Content       [f08                                    ]
+                      [                                       ]
+                      [                                       ]
+                      [                                       ]
+                      [                                       ]
+        }
+      end --grid
+    end --group
+  end --hbox
+end --layout
+
+attributes
+  webcomponent w01 = formonly.p_treecordion,  componenttype="wc_treecordion", scrollbars=both, stretch=both,
+    properties=(showfocus=TRUE); --%, title="Hallo", narrative="Das ist eine narrative");
+  edit f01 = formonly.id;
+  edit f02 = formonly.key;
+  edit f03 = formonly.text;
+  edit f04 = formonly.image;
+  edit f05 = formonly.iconOpen;
+  edit f06 = formonly.iconClosed;
+  combobox f07 = formonly.state, items=("open","closed");
+  webcomponent f08 = formonly.content, componenttype="fglrichtext", scrollbars=both, stretch=both,
+    properties = (toolbar = "undo|redo|aligncenter|alignjustify|alignleft|alignnone|alignright|bold|italic|underline|strikethrough|emoji|bullist|numlist|indent|outdent|linespacing|formatselect|color|fontselect|fontsizeselect|image|insert") ;
+end --attributes
+
+instructions
+  screen record item (id thru content); 
+end --instructions

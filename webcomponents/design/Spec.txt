@@ -1,0 +1,291 @@
+Accordian
+https://codepen.io/brenden/pen/Kwbpyj
+
+OPTIONS
+- CollapseKids: collapse kids when parent is closed
+- Theme
+  Button
+    .foreground
+    .background
+    .hover
+    .selected
+    .padding
+    .fontFamily
+  Outer
+    .selected (border color if selected)
+
+
+.Title
+.Narrative
+.Attributes[]
+.Mode (0-1, 1, multiple/independent)
+
+
+.Item
+  .id (unique key at level or global?)
+  .name -  or Key?
+  .text - what shows on title
+  .image
+  .imageLocation - left, right or middle if no Text
+  .iconOpen
+  .iconClosed
+  .content (any HTML)
+  .state - opened or closed (will need .id to sync)
+
+
+OM Model
+ - Nodes represent node of tree
+ - Node attributes are:
+     Class: folder or leaf
+     IconOpen
+     IconClosed
+     Text
+     Content
+
+
+Dictionary Model
+ - Dictionary of Items
+ - Key like registry key with path
+ - ParentKey points to parent
+
+r_dict dictionary of tItem
+
+r_dict["/"].class = "root"
+r_dict["/Folder1"].image = "pic.jpg"
+r_dict["/Folder1"].content = "<html>...</html>"
+r_dict["/Folder1/subFolder2"].image = "folder.png"
+r_dict["/Folder1/subFolder2"].content = "<html>...</html>"
+r_dict["/Folder2"].image = "pic.jpg"
+r_dict["/Folder2"].content = "<html>...</html>"
+
+FAIL: Dictionaries don't convert to JSON, returns []
+Genero dictionaries create objects, but path is escaped.
+Still need to sort these hierarchically.
+
+
+JSON Model
+ - All text, so any structure is possible
+ - Difficult to maintain
+
+
+{
+  "text" : "abc",
+  "content" : "<...>",
+  "image" : "main-image.png",
+  "icon_open" : "open.png",
+  "icon_close" : "closed.png",
+  "opened" : false,
+  "children" :
+     [
+       {
+         "text" : "abc",
+         "content" : "<...>",
+         "image" : "main-image.png",
+         "icon_open" : "open.png",
+         "icon_close" : "closed.png",
+         "opened" : false,
+         "children" : ...
+       },
+
+     ]
+}
+
+
+DOM model
+
+In BDL the tree is a DOM, and this converted to XML to pass to the WC.
+On the WC side, it is converted back to a DOM, and then can be processed
+using XPath or just node traversal in order to build the HTML.
+
+acctree.Method is used to convert between record and DOM.
+
+Issues?
+Reading from database, will need to encode each record as a node.
+The field attributes are node attributes.
+Eg.
+
+<Item
+  Icon_Open="open.png"
+  Icon_Closed="closed.png"
+  Image="pic.jpg"
+  Text="Foo">
+
+... encoded html content ... CDATA?
+  <Item ...>
+     <Item ...>
+</Item>
+
+
+DOM to JSON
+http://azaslavsky.github.io/domJSON/
+
+
+.Tree_Create a new accTree = domNode
+.Item_Add
+
+
+------------------------------------------------------
+
+
+TreeCordion (nee AccTree)
+
+API
+
+Options
+			Modes:
+				sibling nodes open at a time
+					0 - max one open
+					1 - always one open
+					2+ - any nodes open
+			SingleClick: open or select
+			DoubleClick
+			Scrollbars
+
+field.value		Value of field is the current item
+
+>gen.module
+Init
+Create(field)		Creates a new instance
+Clear(tree)		Clears contents of tree
+Set(tree)		Sets the whole tree to widget
+Show(tree,id,show)	Show or hide node
+IsVisible(tree,id)	Is contents of node visible?
+Expand(tree,id)		Recursively expands all contents of a node
+Collapse(tree,id)	Recursively collapses all contents of a node
+Node_Add(parent)=child	Adds node to parent, returns child node
+Node_Set(node)		Sets attributes of a node
+Item_Add(id,)
+Item_Update(id,)
+Item_Delete(id,)
+XML(tree)		Returns XML from tree's DOM
+
+>js.public
+Set(xml)		Set the contents of the tree to xml
+Show(id, show)		Show or not the node id
+Expand(id)		Expand node including children from a node
+Collapse(id)		Collapse node including all childred from a node
+IsVisible(id)		Whether the contents of a node is visible or not
+
+Add(id,xml)		Add to node id the contents of xml
+Delete(id)		Delete node id and all its children
+Update(id,xml)		Replace contents of node id with xml
+
+>js.private
+.item_Current(item)	Sets current item
+.item_Events(selector)	Set event handlers for item events
+.item_Select(e)		Handler to Select an item: sets Data to item, send SELECT action
+.item_Show(item,show)	Show or not a node
+.item_IsVisible(item)	Returns if contents of item is visible or not
+.node_Load(node)	Recursively builds HTML from XML
+.onICHostReady(ver)	ICAPI interface
+
+
+NO
+x SetContent(xml) ?
+x Open(id)		Opens node at id
+x Close(id)		Closes node at id
+x .item_Toggle		Toggle to show or hide contents of current item
+
+
+REVIEW: How should this work?
+
++ id = value
+ -> onData
+
++ onData change (id)
+ item_Current
+
++ item_Events
+  + onClick
+    item_Select
+
+  + onDblClick
+    item_Select
+    item_Show(toggle)
+
++ item_Current
+ open parents if not visible
+ cursor on the current item
+
++ item_Show(p_show=open/close/default=toggle)
+ shows or hides contents of item
+ (opens or closes)
+
++ item_Select
+ Sets data
+ send action SELECT:
+  Do we really need to do this, it can be ignored
+  Or we can send SELECT, OPEN/CLOSE as events?
+
+----
+X item_Toggle
+ Toggle show/hide of an item
+ not really required, item_Show does this by default
+
+X item_Select
+ item_Current, send action Select
+
+
+ICONS
+jquery-ui.css
+https://api.jqueryui.com/resources/icons-list.html
+
+
+REVIEW 2: How should a dynamic version work?
+
+Version 1 does everything on the basis of a static whole tree which can be set at any time however as the whole tree is updated, the current state of the tree would not be maintained. This is probably OK for most things, however there are situations where parts of the tree would need to be updated in situ. In the case of Alert Monitoring, the contents shows the Pretty Print, however you can choose to update the profile represented by the item (or possibly add or delete a new node).
+
+Note that we retain a copy of the tree in the tTreeCordian structure.
+If we have a dirty bit, that could be used to refresh the widget.
+Having a copy of the tree could be useful when copying the widget too.
+
+So given that the tree is updated via Setter as an XML doc and the state of the tree is retained in the HTML doc via classes, then the options are:
+a) send another tree and sync the difference. This means storing previous tree and doing an XMLdiff ...
+b) Have API Setters for
+	.Set(id,xml) - Set full contents of tree
+	.Update
+
+Item_Add -> Node_Add -> Node_Set
+
+
+DOM Structure
+
+#root
+ul.accordian
+
+  #node
+  li.outer
+    a.toggle
+      span.icon:closed
+      span.icon:open
+      img
+      span.label
+    ul.inner
+      --> #node
+      div.content
+
+
+
+Enhancement: SingleClick over icon to open
+
+Object: Storage is provided by the API client, which means the tree's data structure needs to be passed on each API call.
+The alternative is to pass a reference, which could be the name of the field as an index into a dictonary.
+The structure could still be accessed directly with:
+	wc_treecordion.instance["formonly.p_treecordion"].title, etc.
+Then API calls only need to pass the wc field name
+	let p_widget = "formonly.p_treecordion"
+	call Item_Add(p_widget, p_id, values ....)
+
+
+
+REVIEW 3
+ X .find may be redundant
+ API Get & Set single attribute by (id, attribute, value)
+  - Set means we need to update node
+ API
+  + add key - which can be used as index to data item
+  + auto-id - generates id
+  + id = null => root
+
+  delete - need to set next selection
+  ? how to add to root?

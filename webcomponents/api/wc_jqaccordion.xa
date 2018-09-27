@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='ASCII'?>
+<api_class name="wc_jqaccordion" package="webcomponents.api" top="../../" next="wc_treecordion" prev="wc_accordion">
+  <TYPE name="tSection" type="RECORD &lt;anonymous wc_jqaccordion R1&gt;">
+    <RECORD>
+      <member name="name" type="STRING"/>
+      <member name="content" type="STRING"/>
+    </RECORD>
+  </TYPE>
+  <TYPE name="tAccordion" type="RECORD &lt;anonymous wc_jqaccordion R3&gt;">
+    <RECORD>
+      <member name="field" type="STRING"/>
+      <member name="title" type="STRING"/>
+      <member name="narrative" type="STRING"/>
+      <member name="sections" type="DYNAMIC ARRAY OF wc_jqaccordion.tSection" type_array="DYNAMIC ARRAY OF " type_name="tSection"/>
+    </RECORD>
+  </TYPE>
+  <function name="Serialize">
+    <api_synopsis> Serialize an accordion structure</api_synopsis>
+    <api_returnType>string</api_returnType>
+    <return>JSON string of accordion structure</return>
+    <api_usage>
+      <pre> define r_acc tAccordion,
+   p_json string
+ let p_json = wc_jqaccordion.Serialize(r_acc.*)</pre>
+    </api_usage>
+    <api_param name="r_accordion" type="wc_jqaccordion.tAccordion" type_name="tAccordion">Accordion instance</api_param>
+    <RETURNS type="STRING"/>
+  </function>
+  <function name="Icons">
+    <api_synopsis> Set icons for open and closed states
+ See https://api.jqueryui.com/resources/icons-list.html</api_synopsis>
+    <api_usage>
+      <pre> define r_acc tAccordion
+ ...
+ call wc_jqaccordion.Icons(r_acc.*, "ui-icon-folder-open", "ui-icon-folder-collapsed")</pre>
+    </api_usage>
+    <api_param name="r_acc" type="wc_jqaccordion.tAccordion" type_name="tAccordion">tAccordion record</api_param>
+    <api_param name="p_closed" type="STRING">Name of JQuery-UI icon for closed state</api_param>
+    <api_param name="p_open" type="STRING">Name of JQuery-UI icon for open state</api_param>
+  </function>
+  <function name="Collapsible">
+    <api_synopsis> Set whether the accordion is independently collapsible or not</api_synopsis>
+    <api_usage>
+      <pre> call wc_jqaccordion.Collapsible(TRUE)</pre>
+    </api_usage>
+    <api_param name="r_acc" type="wc_jqaccordion.tAccordion" type_name="tAccordion"/>
+    <api_param name="p_collapse" type="BOOLEAN">Collapsible if TRUE</api_param>
+  </function>
+  <function name="Create">
+    <api_synopsis> Creates a new instance of jqAccordion</api_synopsis>
+    <api_returnType>tAccordion</api_returnType>
+    <return>Accordion record</return>
+    <api_usage>
+      <pre> define r_acc wc_jqaccordion.tAccordion
+ call wc_jqaccordion.Create("formonly.p_jqaccordion") returning r_acc.*</pre>
+    </api_usage>
+    <api_param name="p_field" type="STRING">Form name of the field</api_param>
+    <RETURNS type="wc_jqaccordion.tAccordion" type_name="tAccordion"/>
+  </function>
+  <function name="Init">
+    <api_synopsis> Initialize</api_synopsis>
+    <api_usage>
+      <pre> call wc_jqaccordion.Init()</pre>
+    </api_usage>
+  </function>
+</api_class>

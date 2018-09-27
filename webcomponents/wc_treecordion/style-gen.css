@@ -1,0 +1,78 @@
+/*
+** style.less
+*/
+* {
+  font-family: Arial, Helvetica, sans-serif;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+p {
+  margin: 1em 0;
+}
+.description {
+  margin: 1em auto 1.25em;
+}
+body {
+  width: 40%;
+  min-width: 300px;
+  max-width: 400px;
+  margin: 1.5em auto;
+  padding: 5;
+  color: #333;
+}
+h1 {
+  font-weight: 400;
+  font-size: 1.5em;
+}
+ul {
+  list-style: none;
+  padding: 0;
+}
+ul .inner {
+  padding-left: 1em;
+  overflow: hidden;
+  display: none;
+}
+ul .inner.show {
+  /** display: block; **/
+}
+ul .outer.select {
+  /* %M: was
+		border-width: 0.1em;
+		border-style: solid;
+		border-color: rgba(0, 0, 224, 0.7);	//%M was red
+		*/
+  box-shadow: 0 0 5px blue;
+}
+ul li {
+  margin: .1em 0;
+}
+ul li a.toggle {
+  width: 100%;
+  display: block;
+  background: rgba(244, 244, 244, 0.78);
+  padding: .2em;
+  /* %M was 0.5 */
+  border-radius: 0.15em;
+  transition: background .3s ease;
+}
+ul li a.toggle:hover {
+  background: rgba(224, 224, 224, 0.9);
+}
+/** %M Table **/
+table {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+td,
+th {
+  border: 1px solid #888;
+  text-align: left;
+  padding: 8px;
+}
+tr:nth-child(even) {
+  background-color: #dddddd;
+}

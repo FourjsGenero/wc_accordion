@@ -1,0 +1,18 @@
+/*
+** style.css
+*/
+
+body {
+/*
+  width: 40%;
+  min-width: 300px;
+  max-width: 400px;
+
+  border-style: solid;
+  border-color: #CCC;
+  border-width: 1px;
+*/
+  margin: 0px;
+  padding: 0.5em;
+  color: #333;
+}

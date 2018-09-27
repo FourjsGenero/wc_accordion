@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='ASCII'?>
+<api_class name="test_accordion" package="src" top="../" next="test_jqaccordion" prev="main">
+  <function name="Load">
+    <api_param name="a_sections" type="DYNAMIC ARRAY OF RECORD &lt;anonymous test_accordion R1&gt;"/>
+    <api_param name="p_set" type="INTEGER"/>
+  </function>
+  <function name="Test"/>
+</api_class>

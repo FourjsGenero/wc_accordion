@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='ASCII'?>
+<api_class name="test_treecordion" package="src" top="../" prev="test_jqaccordion">
+  <function name="Item_Load">
+    <api_synopsis> Load content into TreeCordion by Item</api_synopsis>
+    <api_param name="r_tree" type="wc_treecordion.tTreeCordion" type_name="tTreeCordion" type_module="wc_treecordion"/>
+  </function>
+  <function name="Node_Load">
+    <api_synopsis> Load content into TreeCordion by Node</api_synopsis>
+    <api_param name="d_root" type="om.DomNode"/>
+  </function>
+  <function name="Test">
+    <api_param name="p_loadMethod" type="STRING"/>
+  </function>
+</api_class>

@@ -1,0 +1,104 @@
+/*
+** style.less
+*/
+
+//@import url('https://fonts.googleapis.com/css?family=Pacifico|Open+Sans:300,400,600');
+
+* {
+    //box-sizing: border-box;
+    //font-family: 'Open Sans',sans-serif;
+    //font-weight: 300;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+p {
+    //%M font-size:1.1em;
+    margin: 1em 0;
+}
+
+.description {
+  margin: 1em auto 1.25em; // was 1em auto 2.25em
+}
+
+body {
+    width: 40%;
+    min-width: 300px;
+    max-width: 400px;
+    margin: 1.5em auto;
+    padding: 5; //%M bit of padding from the edge
+    color: #333;
+}
+
+h1 {
+    //%M font-family: 'Pacifico', cursive;
+    font-weight: 400;
+    font-size: 1.5em;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+  
+    .inner {
+        padding-left: 1em;
+        overflow: hidden;
+        display: none;
+      
+        &.show {
+	      /** display: block; **/
+        }
+    }
+
+    .outer {
+    	&.select{
+		/* %M: was
+		border-width: 0.1em;
+		border-style: solid;
+		border-color: rgba(0, 0, 224, 0.7);	//%M was red
+		*/
+		// background: rgba(224, 224, 255, 0.5);
+		box-shadow: 0 0 5px blue;
+	}
+    }
+  
+    li {
+        margin: .1em 0; //%M was 0.5
+      
+        a.toggle {
+            width: 100%;
+            display: block;
+            background: rgba(244,244,244,0.78);		//%M was 160s
+            //%M color: #fefefe;
+            padding: .2em; /* %M was 0.5 */
+            border-radius: 0.15em;
+            transition: background .3s ease;
+          
+            &:hover {
+                background: rgba(224, 224, 224, 0.9);	//%M was black
+            }
+        }
+    }
+}
+
+/** %M Table **/
+table {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #888;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+

@@ -1,0 +1,114 @@
+
+<html>
+
+<head>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="../lib/jquery-ui/jquery-ui.min.css">
+  <script type="text/javascript" src="../lib/jquery-3.3.1.min.js"></script>
+</head>
+
+<body>
+
+  <div class="header">
+    <h1 id="Title">TreeCordion</h1>
+
+    <p id="Narrative" class="description">
+      This is a TreeCordion widget <B>Narrative</B>
+    </p>
+  </div>
+  
+  <ul class="accordion">
+
+    <li class="outer select">
+      <a class="toggle" id="1" href="javascript:void(0);">
+        <span icon="closed" class="ui-icon ui-icon-triangle-1-e"></span>
+        <span icon="open" class="ui-icon ui-icon-triangle-1-s" style="display: none"></span>
+        <img src="images/DatabaseActive-16.png"/>
+        <span class="label">Item 1</span></a>
+      <ul class="inner">
+        <div class="content">
+          <li>Option 1</li>
+          <li>Option 2</li>
+          <li>Option 3</li>
+        </div>
+      </ul>
+    </li>
+    
+    <li class="outer">
+      <a class="toggle" id="2" href="javascript:void(0);">Item 2</a>
+      <ul class="inner">
+        <div class="content">
+          <li>Option 1</li>
+          <li>Option 2</li>
+          <li>Option 3</li>
+        </div>
+      </ul>
+    </li>
+    
+    <li class="outer">
+      <a class="toggle" id="3" href="javascript:void(0);">Item 3</a>
+      <ul class="inner">
+      
+        <li class="outer">
+          <a href="#" id="4" class="toggle">Open Inner</a>
+          <ul class="inner">
+            <div class="content">
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas tempus placerat fringilla. Duis a elit et dolor laoreet volutpat. Aliquam ultrices mauris id mattis imperdiet. Aenean cursus ultrices justo et varius. Suspendisse aliquam orci id dui dapibus
+                blandit. In hac habitasse platea dictumst. Sed risus velit, pellentesque eu enim ac, ultricies pretium felis.
+              </p>
+            </div>
+          </ul>
+        </li>
+        
+        <li class="outer">
+          <a href="#" id="5" class="toggle">Open Inner #2</a>
+          <ul class="inner">
+            <div class="content">
+              <p>
+                Children will automatically close upon closing its parent.
+              </p>
+            </div>
+          </ul>
+        </li>
+
+        <div class="content">
+          <li>Option 3</li>
+        </div>
+        
+      </ul>
+    </li>
+    
+    <li class="outer">
+      <a class="toggle" id="6" href="javascript:void(0);">Item 4</a>
+      <ul class="inner">
+        <li>
+          <a href="#" id="7" class="toggle">Technically any number of nested elements</a>
+          <ul class="inner">
+            <li class="outer">
+              <a href="#" class="toggle"><B>Another nested element</B></a>
+              <div class="inner">
+                <p>
+                  <B>As long as the inner element has inner as one of its classes then it will be toggled.</B>
+                </p>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas tempus placerat fringilla. Duis a elit et dolor laoreet volutpat. Aliquam ultrices mauris id mattis imperdiet. Aenean cursus ultrices justo et varius. Suspendisse aliquam orci id dui dapibus
+                  blandit. In hac habitasse platea dictumst. Sed risus velit, pellentesque eu enim ac, ultricies pretium felis.
+                </p>
+              </div>
+            </li>
+          </ul>
+        </li>
+        
+        <li><B>Option 2</B></li>
+        
+        <li>Option 3</li>
+      </ul>
+    </li>
+  </ul>
+
+  <script type="text/javascript" src="wc_treecordion.js"></script>
+
+</body>
+
+</html>
