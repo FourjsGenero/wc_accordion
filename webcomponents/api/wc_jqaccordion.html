@@ -22,19 +22,14 @@
 <a id="type_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" class="summary">
 <tr><th class="summary" colspan="1">TYPE Summary</th></tr>
 <tr><td class="summary-text">
-<b><a href="#tAccordion">tAccordion</a></b> RECORD &lt;anonymous wc_jqaccordion R3&gt;<br>
+<b><a href="#tAccordion">tAccordion</a></b> RECORD<br>
 </td></tr>
 <tr><td class="summary-text">
-<b><a href="#tSection">tSection</a></b> RECORD &lt;anonymous wc_jqaccordion R1&gt;<br>
+<b><a href="#tSection">tSection</a></b> RECORD<br>
 </td></tr>
 </table>
 <br><a id="function_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" class="summary">
 <tr><th class="summary" colspan="2">FUNCTION Summary</th></tr>
-<tr>
-<td class="summary-text"></td>
-<td class="summary-text">
-<b><a href="#Collapsible">Collapsible</a></b>(r_acc <a href="#tAccordion">tAccordion</a>, p_collapse BOOLEAN)<br> Set whether the accordion is independently collapsible or not</td>
-</tr>
 <tr>
 <td class="summary-text"></td>
 <td class="summary-text">
@@ -43,23 +38,28 @@
 <tr>
 <td class="summary-text"></td>
 <td class="summary-text">
-<b><a href="#Icons">Icons</a></b>(r_acc <a href="#tAccordion">tAccordion</a>, p_closed STRING, p_open STRING)<br> Set icons for open and closed states
+<b><a href="#Init">Init</a></b>()<br> Initialize the module</td>
+</tr>
+<tr>
+<td class="summary-text"></td>
+<td class="summary-text">
+<b><a href="#tAccordion.Collapsible">tAccordion.Collapsible</a></b>(p_collapse BOOLEAN)<br> Set whether the accordion is independently collapsible or not</td>
+</tr>
+<tr>
+<td class="summary-text"></td>
+<td class="summary-text">
+<b><a href="#tAccordion.Icons">tAccordion.Icons</a></b>(p_closed STRING, p_open STRING)<br> Set icons for open and closed states
  See https://api.jqueryui.com/resources/icons-list.html</td>
 </tr>
 <tr>
 <td class="summary-text"></td>
 <td class="summary-text">
-<b><a href="#Init">Init</a></b>()<br> Initialize</td>
-</tr>
-<tr>
-<td class="summary-text"></td>
-<td class="summary-text">
-<b><a href="#Serialize">Serialize</a></b>(r_accordion <a href="#tAccordion">tAccordion</a>) RETURNS STRING<br> Serialize an accordion structure</td>
+<b><a href="#tAccordion.Serialize">tAccordion.Serialize</a></b>() RETURNS STRING<br> Serialize an accordion structure</td>
 </tr>
 </table>
 <br><h2>Types</h2>
 <a id="tAccordion"> </a><h3>tAccordion</h3>
-<tt>TYPE <b>tAccordion</b> RECORD &lt;anonymous wc_jqaccordion R3&gt;<table border="0" cellpadding="0" cellspacing="0" class="member"><tr>
+<tt>TYPE <b>tAccordion</b> RECORD<table border="0" cellpadding="0" cellspacing="0" class="member"><tr>
 <td>    </td>
 <td><table border="0" cellpadding="0" cellspacing="0" class="member">
 <tr><td>field STRING</td></tr>
@@ -72,9 +72,62 @@
 <dd></dd>
 <dd><dl></dl></dd>
 </dl>
+<h3>Methods</h3>
+<h3><a id="tAccordion.Collapsible">Collapsible</a></h3>
+<tt>FUNCTION <b>Collapsible</b>(p_collapse BOOLEAN)</tt><dl>
+<dd>
+<p> Set whether the accordion is independently collapsible or not</p>
+<p>
+        <span><pre> define r_acc wc_jqaccordion.tAccordion
+ call r_acc.Collapsible(TRUE)</pre></span>
+      </p>
+</dd>
+<dd><dl>
+<dt><b>Parameters:</b></dt>
+<dd>
+<code>p_collapse</code> - Collapsible if TRUE<br>
+</dd>
+</dl></dd>
+</dl>
+<hr>
+<h3><a id="tAccordion.Icons">Icons</a></h3>
+<tt>FUNCTION <b>Icons</b>(p_closed STRING, p_open STRING)</tt><dl>
+<dd>
+<p> Set icons for open and closed states
+ See https://api.jqueryui.com/resources/icons-list.html</p>
+<p>
+        <span><pre> define r_acc tAccordion
+ ...
+ call r_acc.Icons("ui-icon-folder-open", "ui-icon-folder-collapsed")</pre></span>
+      </p>
+</dd>
+<dd><dl>
+<dt><b>Parameters:</b></dt>
+<dd>
+<code>p_closed</code> - Name of JQuery-UI icon for closed state<br><code>p_open</code> - Name of JQuery-UI icon for open state<br>
+</dd>
+</dl></dd>
+</dl>
+<hr>
+<h3><a id="tAccordion.Serialize">Serialize</a></h3>
+<tt>FUNCTION <b>Serialize</b>() RETURNS STRING</tt><dl>
+<dd>
+<p> Serialize an accordion structure</p>
+<p>
+        <span><pre> define r_acc tAccordion,
+   p_json string
+ let p_json = r_acc.Serialize()</pre></span>
+      </p>
+</dd>
+<dd><dl>
+<dt><b>Returns:</b></dt>
+<dd>JSON string of accordion structure<br>
+</dd>
+</dl></dd>
+</dl>
 <hr>
 <a id="tSection"> </a><h3>tSection</h3>
-<tt>TYPE <b>tSection</b> RECORD &lt;anonymous wc_jqaccordion R1&gt;<table border="0" cellpadding="0" cellspacing="0" class="member"><tr>
+<tt>TYPE <b>tSection</b> RECORD<table border="0" cellpadding="0" cellspacing="0" class="member"><tr>
 <td>    </td>
 <td><table border="0" cellpadding="0" cellspacing="0" class="member">
 <tr><td>name STRING</td></tr>
@@ -86,23 +139,7 @@
 </dl>
 <hr>
 <h2>Functions</h2>
-<a id="Collapsible"> </a><h3>Collapsible</h3>
-<tt>FUNCTION <b>Collapsible</b>(r_acc <a href="#tAccordion">tAccordion</a>, p_collapse BOOLEAN)</tt><dl>
-<dd>
-<p> Set whether the accordion is independently collapsible or not</p>
-<p>
-      <span><pre> call wc_jqaccordion.Collapsible(TRUE)</pre></span>
-    </p>
-</dd>
-<dd><dl>
-<dt><b>Parameters:</b></dt>
-<dd>
-<code>r_acc</code> - <br><code>p_collapse</code> - Collapsible if TRUE<br>
-</dd>
-</dl></dd>
-</dl>
-<hr>
-<a id="Create"> </a><h3>Create</h3>
+<h3><a id="Create">Create</a></h3>
 <tt>FUNCTION <b>Create</b>(p_field STRING) RETURNS <a href="#tAccordion">tAccordion</a></tt><dl>
 <dd>
 <p> Creates a new instance of jqAccordion</p>
@@ -122,57 +159,16 @@
 </dl></dd>
 </dl>
 <hr>
-<a id="Icons"> </a><h3>Icons</h3>
-<tt>FUNCTION <b>Icons</b>(r_acc <a href="#tAccordion">tAccordion</a>, p_closed STRING, p_open STRING)</tt><dl>
-<dd>
-<p> Set icons for open and closed states
- See https://api.jqueryui.com/resources/icons-list.html</p>
-<p>
-      <span><pre> define r_acc tAccordion
- ...
- call wc_jqaccordion.Icons(r_acc.*, "ui-icon-folder-open", "ui-icon-folder-collapsed")</pre></span>
-    </p>
-</dd>
-<dd><dl>
-<dt><b>Parameters:</b></dt>
-<dd>
-<code>r_acc</code> - tAccordion record<br><code>p_closed</code> - Name of JQuery-UI icon for closed state<br><code>p_open</code> - Name of JQuery-UI icon for open state<br>
-</dd>
-</dl></dd>
-</dl>
-<hr>
-<a id="Init"> </a><h3>Init</h3>
+<h3><a id="Init">Init</a></h3>
 <tt>FUNCTION <b>Init</b>()</tt><dl>
 <dd>
-<p> Initialize</p>
+<p> Initialize the module</p>
 <p>
       <span><pre> call wc_jqaccordion.Init()</pre></span>
     </p>
 </dd>
 <dd><dl></dl></dd>
 </dl>
-<hr>
-<a id="Serialize"> </a><h3>Serialize</h3>
-<tt>FUNCTION <b>Serialize</b>(r_accordion <a href="#tAccordion">tAccordion</a>) RETURNS STRING</tt><dl>
-<dd>
-<p> Serialize an accordion structure</p>
-<p>
-      <span><pre> define r_acc tAccordion,
-   p_json string
- let p_json = wc_jqaccordion.Serialize(r_acc.*)</pre></span>
-    </p>
-</dd>
-<dd><dl>
-<dt><b>Parameters:</b></dt>
-<dd>
-<code>r_accordion</code> - Accordion instance<br>
-</dd>
-<dt><b>Returns:</b></dt>
-<dd>JSON string of accordion structure<br>
-</dd>
-</dl></dd>
-</dl>
-<hr>
 <table BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY=""><tr>
 <td><a href="../../overview-summary.html">Overview</a></td>
 <td><a href="package-summary.html">Package</a></td>

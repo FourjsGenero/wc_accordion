@@ -18,7 +18,7 @@ public type
 
 #
 #! Init
-#+ Initialize
+#+ Initialize the module
 #+
 #+ @code
 #+ call wc_jqaccordion.Init()
@@ -27,6 +27,13 @@ public function Init()
 
 end function
 
+
+
+
+
+#
+# CLASS METHODS
+#
 
 
 #
@@ -53,6 +60,11 @@ public function Create(p_field string) returns tAccordion
 end function
 
 
+
+#
+# OBJECT METHODS
+#
+
 #
 #! Collapsible
 #+ Set whether the accordion is independently collapsible or not
@@ -60,43 +72,41 @@ end function
 #+ @param p_collapse    Collapsible if TRUE
 #+
 #+ @code
-#+ call wc_jqaccordion.Collapsible(TRUE)
+#+ define r_acc wc_jqaccordion.tAccordion
+#+ call r_acc.Collapsible(TRUE)
 #
 
-public function Collapsible(r_acc tAccordion, p_collapse boolean)
+public function (this tAccordion) Collapsible(p_collapse boolean)
 
-  call ui.Interface.frontCall("webcomponent", "call", [r_acc.field, "Collapsible", p_collapse], [])
+  call ui.Interface.frontCall("webcomponent", "call", [this.field, "Collapsible", p_collapse], [])
 
 end function
 
 
 #
-#! Icons
+#! tAccordion::Icons
 #+ Set icons for open and closed states
 #+ See https://api.jqueryui.com/resources/icons-list.html
 #+
-#+ @param r_acc       tAccordion record
 #+ @param p_closed    Name of JQuery-UI icon for closed state
 #+ @param p_open      Name of JQuery-UI icon for open state
 #+
 #+ @code
 #+ define r_acc tAccordion
 #+ ...
-#+ call wc_jqaccordion.Icons(r_acc.*, "ui-icon-folder-open", "ui-icon-folder-collapsed")
+#+ call r_acc.Icons("ui-icon-folder-open", "ui-icon-folder-collapsed")
 #
 
-public function Icons(r_acc tAccordion, p_closed string, p_open string)
+public function (this tAccordion) Icons(p_closed string, p_open string)
 
-  call ui.Interface.frontCall("webcomponent", "call", [r_acc.field, "Icons", p_closed, p_open], [])
+  call ui.Interface.frontCall("webcomponent", "call", [this.field, "Icons", p_closed, p_open], [])
 
 end function
 
 
 #
-#! Serialize
+#! tAccordion::Serialize
 #+ Serialize an accordion structure
-#+
-#+ @param r_accordion   Accordion instance
 #+
 #+ @returnType string
 #+ @return JSON string of accordion structure
@@ -104,11 +114,11 @@ end function
 #+ @code
 #+ define r_acc tAccordion,
 #+   p_json string
-#+ let p_json = wc_jqaccordion.Serialize(r_acc.*)
+#+ let p_json = r_acc.Serialize()
 #
-public function Serialize(r_accordion tAccordion) returns string
+public function (this tAccordion) Serialize() returns string
   
-  return util.JSON.stringify(r_accordion)
+  return util.JSON.stringify(this)
   
 end function
 

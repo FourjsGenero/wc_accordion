@@ -4,32 +4,32 @@
  src</api_synopsis>
   <api_usage> Main menu and Unit tests for each type of accordion widget</api_usage>
   <api_class name="main" package="src" top="../" next="test_accordion">
+    <function name="main"/>
     <function name="Run">
       <api_param name="p_request" type="STRING"/>
     </function>
-    <function name="main"/>
   </api_class>
   <api_class name="test_accordion" package="src" top="../" next="test_jqaccordion" prev="main">
+    <function name="Test"/>
     <function name="Load">
-      <api_param name="a_sections" type="DYNAMIC ARRAY OF RECORD &lt;anonymous test_accordion R1&gt;"/>
+      <api_param name="a_sections" type="DYNAMIC ARRAY OF RECORD" type_array="DYNAMIC ARRAY OF " type_name="tSection" type_module="wc_accordion"/>
       <api_param name="p_set" type="INTEGER"/>
     </function>
-    <function name="Test"/>
   </api_class>
   <api_class name="test_jqaccordion" package="src" top="../" next="test_treecordion" prev="test_accordion">
     <function name="Test"/>
   </api_class>
   <api_class name="test_treecordion" package="src" top="../" prev="test_jqaccordion">
-    <function name="Item_Load">
-      <api_synopsis> Load content into TreeCordion by Item</api_synopsis>
-      <api_param name="r_tree" type="wc_treecordion.tTreeCordion" type_name="tTreeCordion" type_module="wc_treecordion"/>
+    <function name="Test">
+      <api_param name="p_loadMethod" type="STRING"/>
     </function>
     <function name="Node_Load">
       <api_synopsis> Load content into TreeCordion by Node</api_synopsis>
       <api_param name="d_root" type="om.DomNode"/>
     </function>
-    <function name="Test">
-      <api_param name="p_loadMethod" type="STRING"/>
+    <function name="Item_Load">
+      <api_synopsis> Load content into TreeCordion by Item</api_synopsis>
+      <api_param name="r_tree" type="wc_treecordion.tTree" type_name="tTree" type_module="wc_treecordion"/>
     </function>
   </api_class>
   <api_class name="wc_unit" package="unit" top="../">

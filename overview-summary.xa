@@ -11,32 +11,32 @@
  src</api_synopsis>
     <api_usage> Main menu and Unit tests for each type of accordion widget</api_usage>
     <api_class name="main" package="src" top="../" next="test_accordion">
+      <function name="main"/>
       <function name="Run">
         <api_param name="p_request" type="STRING"/>
       </function>
-      <function name="main"/>
     </api_class>
     <api_class name="test_accordion" package="src" top="../" next="test_jqaccordion" prev="main">
+      <function name="Test"/>
       <function name="Load">
-        <api_param name="a_sections" type="DYNAMIC ARRAY OF RECORD &lt;anonymous test_accordion R1&gt;"/>
+        <api_param name="a_sections" type="DYNAMIC ARRAY OF RECORD" type_array="DYNAMIC ARRAY OF " type_name="tSection" type_module="wc_accordion"/>
         <api_param name="p_set" type="INTEGER"/>
       </function>
-      <function name="Test"/>
     </api_class>
     <api_class name="test_jqaccordion" package="src" top="../" next="test_treecordion" prev="test_accordion">
       <function name="Test"/>
     </api_class>
     <api_class name="test_treecordion" package="src" top="../" prev="test_jqaccordion">
-      <function name="Item_Load">
-        <api_synopsis> Load content into TreeCordion by Item</api_synopsis>
-        <api_param name="r_tree" type="wc_treecordion.tTreeCordion" type_name="tTreeCordion" type_module="wc_treecordion"/>
+      <function name="Test">
+        <api_param name="p_loadMethod" type="STRING"/>
       </function>
       <function name="Node_Load">
         <api_synopsis> Load content into TreeCordion by Node</api_synopsis>
         <api_param name="d_root" type="om.DomNode"/>
       </function>
-      <function name="Test">
-        <api_param name="p_loadMethod" type="STRING"/>
+      <function name="Item_Load">
+        <api_synopsis> Load content into TreeCordion by Item</api_synopsis>
+        <api_param name="r_tree" type="wc_treecordion.tTree" type_name="tTree" type_module="wc_treecordion"/>
       </function>
     </api_class>
     <api_class name="wc_unit" package="unit" top="../">
@@ -51,84 +51,87 @@
  api</api_synopsis>
     <api_usage> BDL level API for accordion widgets</api_usage>
     <api_class name="wc_accordion" package="webcomponents.api" top="../../" next="wc_jqaccordion">
-      <TYPE name="tSection" type="RECORD &lt;anonymous wc_accordion R1&gt;">
+      <TYPE name="tSection" type="RECORD">
         <RECORD>
           <member name="name" type="STRING"/>
           <member name="content" type="STRING"/>
         </RECORD>
       </TYPE>
-      <TYPE name="tAccordion" type="RECORD &lt;anonymous wc_accordion R3&gt;">
+      <TYPE name="tAccordion" type="RECORD">
         <RECORD>
           <member name="title" type="STRING"/>
           <member name="narrative" type="STRING"/>
-          <member name="sections" type="DYNAMIC ARRAY OF wc_accordion.tSection" type_array="DYNAMIC ARRAY OF " type_name="tSection"/>
+          <member name="sections" type="DYNAMIC ARRAY OF RECORD" type_array="DYNAMIC ARRAY OF " type_name="tSection"/>
         </RECORD>
-      </TYPE>
-      <function name="Serialize">
-        <api_synopsis> Serialize an accordion structure</api_synopsis>
-        <api_returnType>string</api_returnType>
-        <return>JSON string of accordion structure</return>
-        <api_usage>
-          <pre> define r_acc tAccordion,
+        <function receiverType="tAccordion" name="Serialize">
+          <api_synopsis> Serialize an accordion structure</api_synopsis>
+          <api_returnType>string</api_returnType>
+          <return>JSON string of accordion structure</return>
+          <api_usage>
+            <pre> define r_acc tAccordion,
    p_json string
- let p_json = wc_jqaccordion.Serialize(r_acc.*)</pre>
-        </api_usage>
-        <api_param name="r_accordion" type="wc_accordion.tAccordion" type_name="tAccordion">Accordion instance</api_param>
-        <RETURNS type="STRING"/>
-      </function>
+ let p_json = r_acc.Serialize()</pre>
+          </api_usage>
+          <RETURNS type="STRING"/>
+        </function>
+      </TYPE>
       <function name="Init">
-        <api_synopsis> Initialize</api_synopsis>
+        <api_synopsis> Initialize the module</api_synopsis>
         <api_usage>
           <pre> call wc_accordion.Init()</pre>
         </api_usage>
       </function>
     </api_class>
     <api_class name="wc_jqaccordion" package="webcomponents.api" top="../../" next="wc_treecordion" prev="wc_accordion">
-      <TYPE name="tSection" type="RECORD &lt;anonymous wc_jqaccordion R1&gt;">
+      <TYPE name="tSection" type="RECORD">
         <RECORD>
           <member name="name" type="STRING"/>
           <member name="content" type="STRING"/>
         </RECORD>
       </TYPE>
-      <TYPE name="tAccordion" type="RECORD &lt;anonymous wc_jqaccordion R3&gt;">
+      <TYPE name="tAccordion" type="RECORD">
         <RECORD>
           <member name="field" type="STRING"/>
           <member name="title" type="STRING"/>
           <member name="narrative" type="STRING"/>
-          <member name="sections" type="DYNAMIC ARRAY OF wc_jqaccordion.tSection" type_array="DYNAMIC ARRAY OF " type_name="tSection"/>
+          <member name="sections" type="DYNAMIC ARRAY OF RECORD" type_array="DYNAMIC ARRAY OF " type_name="tSection"/>
         </RECORD>
-      </TYPE>
-      <function name="Serialize">
-        <api_synopsis> Serialize an accordion structure</api_synopsis>
-        <api_returnType>string</api_returnType>
-        <return>JSON string of accordion structure</return>
-        <api_usage>
-          <pre> define r_acc tAccordion,
+        <function receiverType="tAccordion" name="Serialize">
+          <api_synopsis> Serialize an accordion structure</api_synopsis>
+          <api_returnType>string</api_returnType>
+          <return>JSON string of accordion structure</return>
+          <api_usage>
+            <pre> define r_acc tAccordion,
    p_json string
- let p_json = wc_jqaccordion.Serialize(r_acc.*)</pre>
-        </api_usage>
-        <api_param name="r_accordion" type="wc_jqaccordion.tAccordion" type_name="tAccordion">Accordion instance</api_param>
-        <RETURNS type="STRING"/>
-      </function>
-      <function name="Icons">
-        <api_synopsis> Set icons for open and closed states
+ let p_json = r_acc.Serialize()</pre>
+          </api_usage>
+          <RETURNS type="STRING"/>
+        </function>
+        <function receiverType="tAccordion" name="Icons">
+          <api_synopsis> Set icons for open and closed states
  See https://api.jqueryui.com/resources/icons-list.html</api_synopsis>
-        <api_usage>
-          <pre> define r_acc tAccordion
+          <api_usage>
+            <pre> define r_acc tAccordion
  ...
- call wc_jqaccordion.Icons(r_acc.*, "ui-icon-folder-open", "ui-icon-folder-collapsed")</pre>
-        </api_usage>
-        <api_param name="r_acc" type="wc_jqaccordion.tAccordion" type_name="tAccordion">tAccordion record</api_param>
-        <api_param name="p_closed" type="STRING">Name of JQuery-UI icon for closed state</api_param>
-        <api_param name="p_open" type="STRING">Name of JQuery-UI icon for open state</api_param>
-      </function>
-      <function name="Collapsible">
-        <api_synopsis> Set whether the accordion is independently collapsible or not</api_synopsis>
+ call r_acc.Icons("ui-icon-folder-open", "ui-icon-folder-collapsed")</pre>
+          </api_usage>
+          <api_param name="p_closed" type="STRING">Name of JQuery-UI icon for closed state</api_param>
+          <api_param name="p_open" type="STRING">Name of JQuery-UI icon for open state</api_param>
+        </function>
+        <function receiverType="tAccordion" name="Collapsible">
+          <api_synopsis> Set whether the accordion is independently collapsible or not</api_synopsis>
+          <api_usage>
+            <pre> define r_acc wc_jqaccordion.tAccordion
+ call r_acc.Collapsible(TRUE)</pre>
+          </api_usage>
+          <api_param name="p_collapse" type="BOOLEAN">Collapsible if TRUE</api_param>
+        </function>
+      </TYPE>
+      <function name="Init">
+        <api_synopsis> Initialize the module</api_synopsis>
         <api_usage>
-          <pre> call wc_jqaccordion.Collapsible(TRUE)</pre>
+          <pre> call wc_jqaccordion.Init()</pre>
         </api_usage>
-        <api_param name="r_acc" type="wc_jqaccordion.tAccordion" type_name="tAccordion"/>
-        <api_param name="p_collapse" type="BOOLEAN">Collapsible if TRUE</api_param>
       </function>
       <function name="Create">
         <api_synopsis> Creates a new instance of jqAccordion</api_synopsis>
@@ -141,15 +144,9 @@
         <api_param name="p_field" type="STRING">Form name of the field</api_param>
         <RETURNS type="wc_jqaccordion.tAccordion" type_name="tAccordion"/>
       </function>
-      <function name="Init">
-        <api_synopsis> Initialize</api_synopsis>
-        <api_usage>
-          <pre> call wc_jqaccordion.Init()</pre>
-        </api_usage>
-      </function>
     </api_class>
     <api_class name="wc_treecordion" package="webcomponents.api" top="../../" prev="wc_jqaccordion">
-      <TYPE name="tTreeCordion" type="RECORD &lt;anonymous wc_treecordion R1&gt;">
+      <TYPE name="tTree" type="RECORD">
         <RECORD>
           <member name="id" type="STRING"/>
           <member name="field" type="STRING"/>
@@ -162,8 +159,168 @@
           <member name="dom" type="om.DomNode"/>
           <member name="Id_New" type="FUNCTION (p_id:STRING) RETURNS STRING"/>
         </RECORD>
+        <function receiverType="tTree" name="Item_Update">
+          <api_synopsis> Update attributes of an Item</api_synopsis>
+          <api_returnType>om.DomNode</api_returnType>
+          <return>DOM node of added child</return>
+          <api_usage>
+            <pre>n DOM node of added child</pre>
+          </api_usage>
+          <api_usage> define r_tree wc_treecordion.tTree, r_item wc_treecordion.tItem, p_id integer
+ ...
+ call r_tree.Item_Update(r_item)</api_usage>
+          <api_param name="r_item" type="wc_treecordion.tItem" type_name="tItem">Item record</api_param>
+        </function>
+        <function receiverType="tTree" name="Item_Get">
+          <api_synopsis> Get an Item by ID</api_synopsis>
+          <api_returnType>tItem</api_returnType>
+          <return>Record of the item node</return>
+          <api_usage>
+            <pre> define  r_tree wc_treecordion.tTree,r_iem wc_treecordion.tItem, p_id integer
+ let r_item = r_tree.Item_Get(p_id)</pre>
+          </api_usage>
+          <api_param name="p_id" type="STRING">Item ID</api_param>
+          <RETURNS type="wc_treecordion.tItem" type_name="tItem"/>
+        </function>
+        <function receiverType="tTree" name="Item_Delete">
+          <api_synopsis> Delete an Item and its descendents by ID</api_synopsis>
+          <api_usage>
+            <pre> define  r_tree wc_treecordion.tTreeCordion, r_item wc_treecordion.tItem, p_currentID integer
+ let p_currentID = r_tree.Item_Delete(r_item.id)</pre>
+          </api_usage>
+          <api_param name="p_id" type="STRING">Item ID</api_param>
+          <RETURNS type="STRING"/>
+        </function>
+        <function receiverType="tTree" name="Item_Attach">
+          <api_synopsis> Add a child Item to a parent Item</api_synopsis>
+          <api_returnType>string</api_returnType>
+          <return>ID of node added</return>
+          <api_usage>
+            <pre> define  r_tree wc_treecordion.tTree, r_item wc_treecordion.tItem, p_parentId, p_newID integer
+ ...
+ let p_newID = r_tree.Item_Add(p_parentId, r_item)</pre>
+          </api_usage>
+          <api_param name="p_parentID" type="STRING">Parent Item ID</api_param>
+          <api_param name="r_item" type="wc_treecordion.tItem" type_name="tItem">Item record</api_param>
+          <RETURNS type="STRING"/>
+        </function>
+        <function receiverType="tTree" name="Item_Add">
+          <api_synopsis> Add a child Item to a parent Item</api_synopsis>
+          <api_returnType>string</api_returnType>
+          <return>ID of node added</return>
+          <api_usage>
+            <pre> define  r_tree wc_treecordion.tTree, r_item wc_treecordion.tItem, p_parentId, p_newID integer
+ ...
+ let p_newID = r_tree.Item_Add(p_parentId, p_id, "", "Section A", "ActivityMonitor-16.png", "", "", "closed", "This is content for &lt;B&gt;A&lt;/B&gt; section")</pre>
+          </api_usage>
+          <api_param name="p_parentID" type="STRING">Parent Item ID</api_param>
+          <api_param name="p_id" type="STRING">Item ID</api_param>
+          <api_param name="p_key" type="STRING">Alternate key</api_param>
+          <api_param name="p_text" type="STRING">Text attribute</api_param>
+          <api_param name="p_image" type="STRING">Image attribute</api_param>
+          <api_param name="p_iconOpen" type="STRING">Icon for Open state</api_param>
+          <api_param name="p_iconClosed" type="STRING">Icon for Closed state</api_param>
+          <api_param name="p_state" type="STRING">Initial state of node (NOT CURRENTLY USED)</api_param>
+          <api_param name="p_content" type="STRING">Content for this node</api_param>
+          <RETURNS type="STRING"/>
+        </function>
+        <function receiverType="tTree" name="XML">
+          <api_synopsis> Get XML string from document</api_synopsis>
+          <api_returnType>string
+ return XML string of TreeCordion's DOM tree</api_returnType>
+          <api_usage>
+            <pre> define p_xml string,
+   r_tree wc_treecordion.tTree
+ let p_xml = r_tree.XML()</pre>
+          </api_usage>
+          <RETURNS type="STRING"/>
+        </function>
+        <function receiverType="tTree" name="Node">
+          <api_synopsis> Returns the om.DomNode by ID</api_synopsis>
+          <api_returnType>om.DomNode</api_returnType>
+          <return>DOM node of added child</return>
+          <api_usage>
+            <pre> define r_tree wc_treecordion.tTree, r_item wc_treecordion.tItem, o_node om.DomNode
+ let o_node = r_tree.Node(r_item.id)</pre>
+          </api_usage>
+          <api_param name="p_id" type="STRING">Item ID</api_param>
+          <RETURNS type="om.DomNode"/>
+        </function>
+        <function receiverType="tTree" name="Collapse">
+          <api_synopsis> Collapse node, default is root node (all)</api_synopsis>
+          <api_usage>
+            <pre> define r_tree wc_treecordion.tTree, r_item wc_treecordion.tItem
+ call r_tree.Collapse(r_item.id)</pre>
+          </api_usage>
+          <api_param name="p_id" type="STRING">Node ID</api_param>
+        </function>
+        <function receiverType="tTree" name="Expand">
+          <api_synopsis> Expand node, default is root node (all)</api_synopsis>
+          <api_usage>
+            <pre> define r_tree wc_treecordion.tTree, r_item wc_treecordion.tItem
+ call r_tree.Expand(r_item.id)</pre>
+          </api_usage>
+          <api_param name="p_id" type="STRING">Node ID</api_param>
+        </function>
+        <function receiverType="tTree" name="IsVisible">
+          <api_synopsis> Is contents of node visible?</api_synopsis>
+          <api_returnType>boolean</api_returnType>
+          <return>TRUE if visible, else FALSE</return>
+          <api_usage>
+            <pre> define r_tree wc_treecordion.tTree, r_item wc_treecordion.tItem
+ if r_tree.IsVisible(r_item.id)
+ then
+   message "contents of item ", r_item.id, " is visible"
+ end if</pre>
+          </api_usage>
+          <api_param name="p_id" type="STRING">Node ID</api_param>
+          <RETURNS type="BOOLEAN"/>
+        </function>
+        <function receiverType="tTree" name="Show">
+          <api_synopsis> Show or hide a node</api_synopsis>
+          <api_usage>
+            <pre> define r_tree wc_treecordion.tTree, r_item wc_treecordion.tItem
+ call r_tree.Show(r_item.id, TRUE)</pre>
+          </api_usage>
+          <api_param name="p_id" type="STRING">Node ID</api_param>
+          <api_param name="p_show" type="BOOLEAN">TRUE to show, else hide</api_param>
+        </function>
+        <function receiverType="tTree" name="Init">
+          <api_synopsis> Initialize contents of widget</api_synopsis>
+          <api_usage>
+            <pre> define r_tree wc_treecordion.tTree
+ let r_tree.title = "Title"
+ ...
+ before input
+   call r_tree.Init()</pre>
+          </api_usage>
+        </function>
+        <function receiverType="tTree" name="Set">
+          <api_synopsis> Set tTree from parameters</api_synopsis>
+          <api_usage>
+            <pre> define r_tree wc_treecordion.tTree
+ call r_tree.Set(r_tree.id, "999", "", "Section 999", "Memory-16.png", "", "", "closed", "This is an new for &lt;B&gt;999&lt;/B&gt; section")</pre>
+          </api_usage>
+          <api_param name="p_id" type="STRING">Currently selected node ID</api_param>
+          <api_param name="p_field" type="STRING">string          Form field name</api_param>
+          <api_param name="p_title" type="STRING">string          Title text</api_param>
+          <api_param name="p_narrative" type="STRING">string      Narrative or description</api_param>
+          <api_param name="p_imagePath" type="STRING">string      Local file or URL image prefix</api_param>
+          <api_param name="p_iconOpen" type="STRING">string       Default ui-icon for open state</api_param>
+          <api_param name="p_iconClosed" type="STRING">string     Default ui-icon for closed state</api_param>
+          <api_param name="po_doc" type="om.DomDocument">om.DomDocument   DOM document</api_param>
+          <api_param name="po_dom" type="om.DomNode">om.DomNode       Root DomNode of DOM document</api_param>
+          <api_param name="pf_func" type="FUNCTION (p_id:STRING) RETURNS STRING">Refers to function(p_id string) returns string</api_param>
+        </function>
+        <function receiverType="tTree" name="Clear">
+          <api_synopsis> Clear record: reset attributes on root node, and delete all children</api_synopsis>
+          <api_usage>
+            <pre> define r_tree wc_treecordion.tTree
+ call r_tree.Clear()</pre>
+          </api_usage>
+        </function>
       </TYPE>
-      <TYPE name="tItem" type="RECORD &lt;anonymous wc_treecordion R3&gt;">
+      <TYPE name="tItem" type="RECORD">
         <RECORD>
           <member name="id" type="STRING"/>
           <member name="key" type="STRING"/>
@@ -174,198 +331,78 @@
           <member name="state" type="STRING"/>
           <member name="content" type="STRING"/>
         </RECORD>
-      </TYPE>
-      <function name="XML">
-        <api_synopsis> Get XML string from document</api_synopsis>
-        <api_returnType>string
- return XML string of TreeCordion's DOM tree</api_returnType>
-        <api_usage>
-          <pre> define p_xml string,
-   r_acc tTreeCordion
- let p_xml = wc_treecordion.XML(r_acc.*)</pre>
-        </api_usage>
-        <api_param name="r_tree" type="wc_treecordion.tTreeCordion" type_name="tTreeCordion">TreeCordion instance</api_param>
-        <RETURNS type="STRING"/>
-      </function>
-      <function name="Node_Set">
-        <api_synopsis/>
-        <api_usage>
-          <pre> define  o_parent, o_child om.DomNode
+        <function receiverType="tItem" name="Update">
+          <api_synopsis> Update node attributes from Item</api_synopsis>
+          <api_usage>
+            <pre> define  o_parent, o_child om.DomNode, r_item wc_treecordion.tItem
  let o_child = o_parent.createChild("Node")
- call Node_Set(o_child, p_id, p_key, p_text, p_image, p_iconOpen, p_iconClosed, p_state, p_content)</pre>
-        </api_usage>
-        <api_param name="o_node" type="om.DomNode"/>
-        <api_param name="p_id" type="STRING">Node ID</api_param>
-        <api_param name="p_key" type="STRING">Alternate key</api_param>
-        <api_param name="p_text" type="STRING">Text attribute</api_param>
-        <api_param name="p_image" type="STRING">Image attribute</api_param>
-        <api_param name="p_iconOpen" type="STRING">Icon for Open state</api_param>
-        <api_param name="p_iconClosed" type="STRING">Icon for Closed state</api_param>
-        <api_param name="p_state" type="STRING">Current state of node (NOT CURRENTLY USED)</api_param>
-        <api_param name="p_content" type="STRING">Content for this node</api_param>
-      </function>
-      <function name="Node_Add">
-        <api_synopsis> Add a child node to a parent node</api_synopsis>
-        <api_returnType>om.DomNode</api_returnType>
-        <return>DOM node of added child</return>
-        <api_usage>
-          <pre> define  a_nodes dynamic array of om.DomNode,
- let a_nodes[p_depth] = wc_treecordion.Node_Add(a_nodes[p_depth-1], p_id:=p_id+1, "Section A", "ActivityMonitor-16.png", "", "", "closed", "This is content for &lt;B&gt;A&lt;/B&gt; section")</pre>
-        </api_usage>
-        <api_param name="o_parent" type="om.DomNode">Parent DOM node</api_param>
-        <api_param name="p_id" type="STRING">Node ID</api_param>
-        <api_param name="p_key" type="STRING">Alternate key</api_param>
-        <api_param name="p_text" type="STRING">Text attribute</api_param>
-        <api_param name="p_image" type="STRING">Image attribute</api_param>
-        <api_param name="p_iconOpen" type="STRING">Icon for Open state</api_param>
-        <api_param name="p_iconClosed" type="STRING">Icon for Closed state</api_param>
-        <api_param name="p_state" type="STRING">Current state of node (NOT CURRENTLY USED)</api_param>
-        <api_param name="p_content" type="STRING">Content for this node</api_param>
-        <RETURNS type="om.DomNode"/>
-      </function>
-      <function name="Node">
-        <api_synopsis/>
-        <api_returnType>om.DomNode</api_returnType>
-        <return>DOM node of added child</return>
-        <api_param name="r_tree" type="wc_treecordion.tTreeCordion" type_name="tTreeCordion">TreeCordion instance</api_param>
-        <api_param name="p_id" type="STRING">Item ID</api_param>
-      </function>
-      <function name="Item_Update">
-        <api_synopsis> Update attributes of an Item</api_synopsis>
-        <api_returnType>om.DomNode</api_returnType>
-        <return>DOM node of added child</return>
-        <api_usage>
-          <pre>n DOM node of added child</pre>
-        </api_usage>
-        <api_usage> define r_tree tTreeCordion, p_id integer
- call wc_treecordion.Item_Update(r_tree.*, p_id, "SecA", "Section A", "ActivityMonitor-16.png", "", "", "closed", "This is content for &lt;B&gt;A&lt;/B&gt; section")</api_usage>
-        <api_param name="r_tree" type="wc_treecordion.tTreeCordion" type_name="tTreeCordion">TreeCordion instance</api_param>
-        <api_param name="p_id" type="STRING">Item ID</api_param>
-        <api_param name="p_key" type="STRING">Alternate key</api_param>
-        <api_param name="p_text" type="STRING">Text attribute</api_param>
-        <api_param name="p_image" type="STRING">Image attribute</api_param>
-        <api_param name="p_iconOpen" type="STRING">Icon for Open state</api_param>
-        <api_param name="p_iconClosed" type="STRING">Icon for Closed state</api_param>
-        <api_param name="p_state" type="STRING">Initial state of node (NOT CURRENTLY USED)</api_param>
-        <api_param name="p_content" type="STRING">Content for this node</api_param>
-      </function>
-      <function name="Item_Get">
-        <api_synopsis> Get an Item by ID</api_synopsis>
-        <api_returnType>tItem</api_returnType>
-        <return>Record of the item node</return>
-        <api_usage>
-          <pre> define  r_tree tTreeCordion, p_id integer
- call wc_treecordion.Item_Get(r_tree.*, p_id)</pre>
-        </api_usage>
-        <api_param name="r_tree" type="wc_treecordion.tTreeCordion" type_name="tTreeCordion">TreeCordion instance</api_param>
-        <api_param name="p_id" type="STRING">Item ID</api_param>
-        <RETURNS type="wc_treecordion.tItem" type_name="tItem"/>
-      </function>
-      <function name="Item_Delete">
-        <api_synopsis> Delete an Item and its descendents by ID</api_synopsis>
-        <api_usage>
-          <pre> define  r_tree tTreeCordion, p_id integer
- call wc_treecordion.Item_Add(r_tree.*, p_parentId, p_id:=p_id+1, "Section A", "ActivityMonitor-16.png", "", "", "closed", "This is content for &lt;B&gt;A&lt;/B&gt; section")</pre>
-        </api_usage>
-        <api_param name="r_tree" type="wc_treecordion.tTreeCordion" type_name="tTreeCordion">TreeCordion instance</api_param>
-        <api_param name="p_id" type="STRING">Item ID</api_param>
-        <RETURNS type="STRING"/>
-      </function>
-      <function name="Item_Add">
-        <api_synopsis> Add a child Item to a parent Item</api_synopsis>
-        <api_returnType>om.DomNode</api_returnType>
-        <return>DOM node of added child</return>
-        <api_usage>
-          <pre> define  r_tree tTreeCordion, p_parentId, p_id integer
- call wc_treecordion.Item_Add(r_tree.*, p_parentId, p_id:=p_id+1, "", "Section A", "ActivityMonitor-16.png", "", "", "closed", "This is content for &lt;B&gt;A&lt;/B&gt; section")</pre>
-        </api_usage>
-        <api_param name="r_tree" type="wc_treecordion.tTreeCordion" type_name="tTreeCordion">TreeCordion instance</api_param>
-        <api_param name="p_parentId" type="STRING">Parent Item ID</api_param>
-        <api_param name="p_id" type="STRING">Item ID</api_param>
-        <api_param name="p_key" type="STRING">Alternate key</api_param>
-        <api_param name="p_text" type="STRING">Text attribute</api_param>
-        <api_param name="p_image" type="STRING">Image attribute</api_param>
-        <api_param name="p_iconOpen" type="STRING">Icon for Open state</api_param>
-        <api_param name="p_iconClosed" type="STRING">Icon for Closed state</api_param>
-        <api_param name="p_state" type="STRING">Initial state of node (NOT CURRENTLY USED)</api_param>
-        <api_param name="p_content" type="STRING">Content for this node</api_param>
-      </function>
-      <function name="Collapse">
-        <api_synopsis> Collapse node, default is root node (all)</api_synopsis>
-        <api_usage>
-          <pre> define r_acc tTreeCordion
- call wc_treecordion.Collapse(r_acc.*, "1")</pre>
-        </api_usage>
-        <api_param name="r_tree" type="wc_treecordion.tTreeCordion" type_name="tTreeCordion">TreeCordion instance</api_param>
-        <api_param name="p_id" type="STRING">Node ID</api_param>
-      </function>
-      <function name="Expand">
-        <api_synopsis> Expand node, default is root node (all)</api_synopsis>
-        <api_usage>
-          <pre> define r_acc tTreeCordion
- call wc_treecordion.Expand(r_acc.*, "1")</pre>
-        </api_usage>
-        <api_param name="r_tree" type="wc_treecordion.tTreeCordion" type_name="tTreeCordion">TreeCordion instance</api_param>
-        <api_param name="p_id" type="STRING">Node ID</api_param>
-      </function>
-      <function name="IsVisible">
-        <api_synopsis> Is contents of node visible?</api_synopsis>
-        <api_returnType>boolean</api_returnType>
-        <return>TRUE if visible, else FALSE</return>
-        <api_usage>
-          <pre> define r_acc tTreeCordion
- if wc_treecordion.IsVisible(r_acc.*, "2")
- then
-   message "contents of item 2 is visible"
- end if</pre>
-        </api_usage>
-        <api_param name="r_tree" type="wc_treecordion.tTreeCordion" type_name="tTreeCordion">TreeCordion instance</api_param>
-        <api_param name="p_id" type="STRING">Node ID</api_param>
-      </function>
-      <function name="Show">
-        <api_synopsis> Show or hide a node</api_synopsis>
-        <api_usage>
-          <pre> define r_acc tTreeCordion
- call wc_treecordion.Show(r_acc.*, "1", TRUE)</pre>
-        </api_usage>
-        <api_param name="r_tree" type="wc_treecordion.tTreeCordion" type_name="tTreeCordion">TreeCordion instance</api_param>
-        <api_param name="p_id" type="STRING">Node ID</api_param>
-        <api_param name="p_show" type="BOOLEAN">TRUE to show, else hide</api_param>
-      </function>
-      <function name="Set">
-        <api_synopsis> Set initial contents of widget</api_synopsis>
-        <api_usage>
-          <pre> define r_acc tTreeCordion
- let r_acc.title = "Title"
  ...
- call wc_treecordion.Set(r_acc.*)</pre>
-        </api_usage>
-        <api_param name="r_tree" type="wc_treecordion.tTreeCordion" type_name="tTreeCordion">TreeCordion instance</api_param>
-      </function>
-      <function name="Clear">
-        <api_synopsis> Clear record: reset attributes on root node, and delete all children</api_synopsis>
+ call r_item.Update(o_child)</pre>
+          </api_usage>
+          <api_param name="o_node" type="om.DomNode">DOM node</api_param>
+        </function>
+        <function receiverType="tItem" name="Attach">
+          <api_synopsis> Attach Item as a child node to a parent node</api_synopsis>
+          <api_returnType>om.DomNode</api_returnType>
+          <return>DOM node of added child</return>
+          <api_usage>
+            <pre> define a_nodes dynamic array of om.DomNode, r_item wc_treecordion.tItem
+ let a_nodes[p_depth] = r_item.Attach(a_nodes[p_depth-1])</pre>
+          </api_usage>
+          <api_param name="o_parent" type="om.DomNode">Parent DOM node</api_param>
+          <RETURNS type="om.DomNode"/>
+        </function>
+        <function receiverType="tItem" name="Set">
+          <api_synopsis> Set Item from parameters</api_synopsis>
+          <api_usage>
+            <pre> define   r_item wc_treecordion.tItem
+ call r_item.Set(r_tree.id, "999", "", "Section 999", "Memory-16.png", "", "", "closed", "This is an new for &lt;B&gt;999&lt;/B&gt; section")</pre>
+          </api_usage>
+          <api_param name="p_id" type="STRING">Item ID</api_param>
+          <api_param name="p_key" type="STRING">Alternate key</api_param>
+          <api_param name="p_text" type="STRING">Text attribute</api_param>
+          <api_param name="p_image" type="STRING">Image attribute</api_param>
+          <api_param name="p_iconOpen" type="STRING">Icon for Open state</api_param>
+          <api_param name="p_iconClosed" type="STRING">Icon for Closed state</api_param>
+          <api_param name="p_state" type="STRING">Initial state of node (NOT CURRENTLY USED)</api_param>
+          <api_param name="p_content" type="STRING">Content for this node</api_param>
+        </function>
+      </TYPE>
+      <function name="Init">
+        <api_synopsis> Initialize the module</api_synopsis>
         <api_usage>
-          <pre> define r_acc wc_treecordion.tTreeCordion
- call wc_treecordion.Clear(r_acc.*)</pre>
+          <pre> call wc_treecordion.Init()</pre>
         </api_usage>
-        <api_param name="r_tree" type="wc_treecordion.tTreeCordion" type_name="tTreeCordion">TreeCordion instance</api_param>
       </function>
       <function name="Create">
         <api_synopsis> Creates a new instance of TreeCordion</api_synopsis>
         <api_returnType>tTreeCordion</api_returnType>
         <return>TreeCordion record</return>
         <api_usage>
-          <pre> define r_acc wc_treecordion.tTreeCordion
- call wc_treecordion.Create("formonly.p_treecordion") returning r_acc.*</pre>
+          <pre> define r_tree wc_treecordion.tTree
+ let r_tree = wc_treecordion.Create("formonly.p_treecordion")</pre>
         </api_usage>
         <api_param name="p_field" type="STRING">Form name of the field</api_param>
-        <RETURNS type="wc_treecordion.tTreeCordion" type_name="tTreeCordion"/>
+        <RETURNS type="wc_treecordion.tTree" type_name="tTree"/>
       </function>
-      <function name="Init">
-        <api_synopsis> Initialize the widget</api_synopsis>
+      <function name="Node_Add">
+        <api_synopsis> Attach Item as a child node to a parent node</api_synopsis>
+        <api_returnType>om.DomNode</api_returnType>
+        <return>DOM node of added child</return>
         <api_usage>
-          <pre> call wc_actree.Init()</pre>
+          <pre> define a_nodes dynamic array of om.DomNode, r_tree wc_treecordion.tTree, r_item wc_treecordion.tItem
+ let a_nodes[p_depth] = wc_treecordion.Node_Add(a_nodes[p_depth-1], r_tree.id, "999", "", "Section 999", "Memory-16.png", "", "", "closed", "This is an new for &lt;B&gt;999&lt;/B&gt; section")</pre>
         </api_usage>
+        <api_param name="o_parent" type="om.DomNode">Parent DOM node</api_param>
+        <api_param name="p_id" type="STRING">Item ID</api_param>
+        <api_param name="p_key" type="STRING">Alternate key</api_param>
+        <api_param name="p_text" type="STRING">Text attribute</api_param>
+        <api_param name="p_image" type="STRING">Image attribute</api_param>
+        <api_param name="p_iconOpen" type="STRING">Icon for Open state</api_param>
+        <api_param name="p_iconClosed" type="STRING">Icon for Closed state</api_param>
+        <api_param name="p_state" type="STRING">State of node</api_param>
+        <api_param name="p_content" type="STRING">Content for this node</api_param>
+        <RETURNS type="om.DomNode"/>
       </function>
     </api_class>
   </package>

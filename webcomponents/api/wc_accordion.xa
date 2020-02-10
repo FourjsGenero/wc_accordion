@@ -1,32 +1,31 @@
 <?xml version='1.0' encoding='ASCII'?>
 <api_class name="wc_accordion" package="webcomponents.api" top="../../" next="wc_jqaccordion">
-  <TYPE name="tSection" type="RECORD &lt;anonymous wc_accordion R1&gt;">
+  <TYPE name="tSection" type="RECORD">
     <RECORD>
       <member name="name" type="STRING"/>
       <member name="content" type="STRING"/>
     </RECORD>
   </TYPE>
-  <TYPE name="tAccordion" type="RECORD &lt;anonymous wc_accordion R3&gt;">
+  <TYPE name="tAccordion" type="RECORD">
     <RECORD>
       <member name="title" type="STRING"/>
       <member name="narrative" type="STRING"/>
-      <member name="sections" type="DYNAMIC ARRAY OF wc_accordion.tSection" type_array="DYNAMIC ARRAY OF " type_name="tSection"/>
+      <member name="sections" type="DYNAMIC ARRAY OF RECORD" type_array="DYNAMIC ARRAY OF " type_name="tSection"/>
     </RECORD>
-  </TYPE>
-  <function name="Serialize">
-    <api_synopsis> Serialize an accordion structure</api_synopsis>
-    <api_returnType>string</api_returnType>
-    <return>JSON string of accordion structure</return>
-    <api_usage>
-      <pre> define r_acc tAccordion,
+    <function receiverType="tAccordion" name="Serialize">
+      <api_synopsis> Serialize an accordion structure</api_synopsis>
+      <api_returnType>string</api_returnType>
+      <return>JSON string of accordion structure</return>
+      <api_usage>
+        <pre> define r_acc tAccordion,
    p_json string
- let p_json = wc_jqaccordion.Serialize(r_acc.*)</pre>
-    </api_usage>
-    <api_param name="r_accordion" type="wc_accordion.tAccordion" type_name="tAccordion">Accordion instance</api_param>
-    <RETURNS type="STRING"/>
-  </function>
+ let p_json = r_acc.Serialize()</pre>
+      </api_usage>
+      <RETURNS type="STRING"/>
+    </function>
+  </TYPE>
   <function name="Init">
-    <api_synopsis> Initialize</api_synopsis>
+    <api_synopsis> Initialize the module</api_synopsis>
     <api_usage>
       <pre> call wc_accordion.Init()</pre>
     </api_usage>

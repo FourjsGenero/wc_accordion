@@ -40,7 +40,7 @@ public function Test()
   #let r_acc.title = "Accordion Test"
   #let r_acc.narrative = "This is a test for an accordion widget"
   call Load(r_acc.sections, 1)
-  let p_accordion = wc_accordion.Serialize(r_acc.*)
+  let p_accordion = r_acc.Serialize()
   
   -- Interact
   open window w_test with form "test_accordion"

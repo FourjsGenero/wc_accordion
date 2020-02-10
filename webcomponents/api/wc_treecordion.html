@@ -22,10 +22,10 @@
 <a id="type_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" class="summary">
 <tr><th class="summary" colspan="1">TYPE Summary</th></tr>
 <tr><td class="summary-text">
-<b><a href="#tItem">tItem</a></b> RECORD &lt;anonymous wc_treecordion R3&gt;<br>
+<b><a href="#tItem">tItem</a></b> RECORD<br>
 </td></tr>
 <tr><td class="summary-text">
-<b><a href="#tTreeCordion">tTreeCordion</a></b> RECORD &lt;anonymous wc_treecordion R1&gt;<br>
+<b><a href="#tTree">tTree</a></b> RECORD<br>
 </td></tr>
 </table>
 <br><a id="function_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" class="summary">
@@ -33,89 +33,107 @@
 <tr>
 <td class="summary-text"></td>
 <td class="summary-text">
-<b><a href="#Clear">Clear</a></b>(r_tree <a href="#tTreeCordion">tTreeCordion</a>)<br> Clear record: reset attributes on root node, and delete all children</td>
+<b><a href="#Create">Create</a></b>(p_field STRING) RETURNS <a href="#tTree">tTree</a><br> Creates a new instance of TreeCordion</td>
 </tr>
 <tr>
 <td class="summary-text"></td>
 <td class="summary-text">
-<b><a href="#Collapse">Collapse</a></b>(r_tree <a href="#tTreeCordion">tTreeCordion</a>, p_id STRING)<br> Collapse node, default is root node (all)</td>
+<b><a href="#Init">Init</a></b>()<br> Initialize the module</td>
 </tr>
 <tr>
 <td class="summary-text"></td>
 <td class="summary-text">
-<b><a href="#Create">Create</a></b>(p_field STRING) RETURNS <a href="#tTreeCordion">tTreeCordion</a><br> Creates a new instance of TreeCordion</td>
+<b><a href="#Node_Add">Node_Add</a></b>(o_parent om.DomNode, p_id STRING, p_key STRING, p_text STRING, p_image STRING, p_iconOpen STRING, p_iconClosed STRING, p_state STRING, p_content STRING) RETURNS om.DomNode<br> Attach Item as a child node to a parent node</td>
 </tr>
 <tr>
 <td class="summary-text"></td>
 <td class="summary-text">
-<b><a href="#Expand">Expand</a></b>(r_tree <a href="#tTreeCordion">tTreeCordion</a>, p_id STRING)<br> Expand node, default is root node (all)</td>
+<b><a href="#tItem.Attach">tItem.Attach</a></b>(o_parent om.DomNode) RETURNS om.DomNode<br> Attach Item as a child node to a parent node</td>
 </tr>
 <tr>
 <td class="summary-text"></td>
 <td class="summary-text">
-<b><a href="#Init">Init</a></b>()<br> Initialize the widget</td>
+<b><a href="#tItem.Set">tItem.Set</a></b>(p_id STRING, p_key STRING, p_text STRING, p_image STRING, p_iconOpen STRING, p_iconClosed STRING, p_state STRING, p_content STRING)<br> Set Item from parameters</td>
 </tr>
 <tr>
 <td class="summary-text"></td>
 <td class="summary-text">
-<b><a href="#IsVisible">IsVisible</a></b>(r_tree <a href="#tTreeCordion">tTreeCordion</a>, p_id STRING) RETURNS boolean<br> Is contents of node visible?</td>
+<b><a href="#tItem.Update">tItem.Update</a></b>(o_node om.DomNode)<br> Update node attributes from Item</td>
 </tr>
 <tr>
 <td class="summary-text"></td>
 <td class="summary-text">
-<b><a href="#Item_Add">Item_Add</a></b>(r_tree <a href="#tTreeCordion">tTreeCordion</a>, p_parentId STRING, p_id STRING, p_key STRING, p_text STRING, p_image STRING, p_iconOpen STRING, p_iconClosed STRING, p_state STRING, p_content STRING) RETURNS om.DomNode<br> Add a child Item to a parent Item</td>
+<b><a href="#tTree.Clear">tTree.Clear</a></b>()<br> Clear record: reset attributes on root node, and delete all children</td>
 </tr>
 <tr>
 <td class="summary-text"></td>
 <td class="summary-text">
-<b><a href="#Item_Delete">Item_Delete</a></b>(r_tree <a href="#tTreeCordion">tTreeCordion</a>, p_id STRING) RETURNS STRING<br> Delete an Item and its descendents by ID</td>
+<b><a href="#tTree.Collapse">tTree.Collapse</a></b>(p_id STRING)<br> Collapse node, default is root node (all)</td>
 </tr>
 <tr>
 <td class="summary-text"></td>
 <td class="summary-text">
-<b><a href="#Item_Get">Item_Get</a></b>(r_tree <a href="#tTreeCordion">tTreeCordion</a>, p_id STRING) RETURNS <a href="#tItem">tItem</a><br> Get an Item by ID</td>
+<b><a href="#tTree.Expand">tTree.Expand</a></b>(p_id STRING)<br> Expand node, default is root node (all)</td>
 </tr>
 <tr>
 <td class="summary-text"></td>
 <td class="summary-text">
-<b><a href="#Item_Update">Item_Update</a></b>(r_tree <a href="#tTreeCordion">tTreeCordion</a>, p_id STRING, p_key STRING, p_text STRING, p_image STRING, p_iconOpen STRING, p_iconClosed STRING, p_state STRING, p_content STRING) RETURNS om.DomNode<br> Update attributes of an Item</td>
+<b><a href="#tTree.Init">tTree.Init</a></b>()<br> Initialize contents of widget</td>
 </tr>
 <tr>
 <td class="summary-text"></td>
 <td class="summary-text">
-<b><a href="#Node">Node</a></b>(r_tree <a href="#tTreeCordion">tTreeCordion</a>, p_id STRING) RETURNS om.DomNode<br>
-</td>
+<b><a href="#tTree.IsVisible">tTree.IsVisible</a></b>(p_id STRING) RETURNS BOOLEAN<br> Is contents of node visible?</td>
 </tr>
 <tr>
 <td class="summary-text"></td>
 <td class="summary-text">
-<b><a href="#Node_Add">Node_Add</a></b>(o_parent om.DomNode, p_id STRING, p_key STRING, p_text STRING, p_image STRING, p_iconOpen STRING, p_iconClosed STRING, p_state STRING, p_content STRING) RETURNS om.DomNode<br> Add a child node to a parent node</td>
+<b><a href="#tTree.Item_Add">tTree.Item_Add</a></b>(p_parentID STRING, p_id STRING, p_key STRING, p_text STRING, p_image STRING, p_iconOpen STRING, p_iconClosed STRING, p_state STRING, p_content STRING) RETURNS STRING<br> Add a child Item to a parent Item</td>
 </tr>
 <tr>
 <td class="summary-text"></td>
 <td class="summary-text">
-<b><a href="#Node_Set">Node_Set</a></b>(o_node om.DomNode, p_id STRING, p_key STRING, p_text STRING, p_image STRING, p_iconOpen STRING, p_iconClosed STRING, p_state STRING, p_content STRING)<br>
-</td>
+<b><a href="#tTree.Item_Attach">tTree.Item_Attach</a></b>(p_parentID STRING, r_item <a href="#tItem">tItem</a>) RETURNS STRING<br> Add a child Item to a parent Item</td>
 </tr>
 <tr>
 <td class="summary-text"></td>
 <td class="summary-text">
-<b><a href="#Set">Set</a></b>(r_tree <a href="#tTreeCordion">tTreeCordion</a>)<br> Set initial contents of widget</td>
+<b><a href="#tTree.Item_Delete">tTree.Item_Delete</a></b>(p_id STRING) RETURNS STRING<br> Delete an Item and its descendents by ID</td>
 </tr>
 <tr>
 <td class="summary-text"></td>
 <td class="summary-text">
-<b><a href="#Show">Show</a></b>(r_tree <a href="#tTreeCordion">tTreeCordion</a>, p_id STRING, p_show BOOLEAN)<br> Show or hide a node</td>
+<b><a href="#tTree.Item_Get">tTree.Item_Get</a></b>(p_id STRING) RETURNS <a href="#tItem">tItem</a><br> Get an Item by ID</td>
 </tr>
 <tr>
 <td class="summary-text"></td>
 <td class="summary-text">
-<b><a href="#XML">XML</a></b>(r_tree <a href="#tTreeCordion">tTreeCordion</a>) RETURNS STRING<br> Get XML string from document</td>
+<b><a href="#tTree.Item_Update">tTree.Item_Update</a></b>(r_item <a href="#tItem">tItem</a>) RETURNS om.DomNode<br> Update attributes of an Item</td>
+</tr>
+<tr>
+<td class="summary-text"></td>
+<td class="summary-text">
+<b><a href="#tTree.Node">tTree.Node</a></b>(p_id STRING) RETURNS om.DomNode<br> Returns the om.DomNode by ID</td>
+</tr>
+<tr>
+<td class="summary-text"></td>
+<td class="summary-text">
+<b><a href="#tTree.Set">tTree.Set</a></b>(p_id STRING, p_field STRING, p_title STRING, p_narrative STRING, p_imagePath STRING, p_iconOpen STRING, p_iconClosed STRING, po_doc om.DomDocument, po_dom om.DomNode, pf_func FUNCTION (p_id:STRING) RETURNS STRING)<br> Set tTree from parameters</td>
+</tr>
+<tr>
+<td class="summary-text"></td>
+<td class="summary-text">
+<b><a href="#tTree.Show">tTree.Show</a></b>(p_id STRING, p_show BOOLEAN)<br> Show or hide a node</td>
+</tr>
+<tr>
+<td class="summary-text"></td>
+<td class="summary-text">
+<b><a href="#tTree.XML">tTree.XML</a></b>() RETURNS STRING<br> Get XML string from document</td>
 </tr>
 </table>
 <br><h2>Types</h2>
 <a id="tItem"> </a><h3>tItem</h3>
-<tt>TYPE <b>tItem</b> RECORD &lt;anonymous wc_treecordion R3&gt;<table border="0" cellpadding="0" cellspacing="0" class="member"><tr>
+<tt>TYPE <b>tItem</b> RECORD<table border="0" cellpadding="0" cellspacing="0" class="member"><tr>
 <td>    </td>
 <td><table border="0" cellpadding="0" cellspacing="0" class="member">
 <tr><td>id STRING</td></tr>
@@ -131,9 +149,65 @@
 <dd></dd>
 <dd><dl></dl></dd>
 </dl>
+<h3>Methods</h3>
+<h3><a id="tItem.Attach">Attach</a></h3>
+<tt>FUNCTION <b>Attach</b>(o_parent om.DomNode) RETURNS om.DomNode</tt><dl>
+<dd>
+<p> Attach Item as a child node to a parent node</p>
+<p>
+        <span><pre> define a_nodes dynamic array of om.DomNode, r_item wc_treecordion.tItem
+ let a_nodes[p_depth] = r_item.Attach(a_nodes[p_depth-1])</pre></span>
+      </p>
+</dd>
+<dd><dl>
+<dt><b>Parameters:</b></dt>
+<dd>
+<code>o_parent</code> - Parent DOM node<br>
+</dd>
+<dt><b>Returns:</b></dt>
+<dd>DOM node of added child<br>
+</dd>
+</dl></dd>
+</dl>
 <hr>
-<a id="tTreeCordion"> </a><h3>tTreeCordion</h3>
-<tt>TYPE <b>tTreeCordion</b> RECORD &lt;anonymous wc_treecordion R1&gt;<table border="0" cellpadding="0" cellspacing="0" class="member"><tr>
+<h3><a id="tItem.Set">Set</a></h3>
+<tt>FUNCTION <b>Set</b>(p_id STRING, p_key STRING, p_text STRING, p_image STRING, p_iconOpen STRING, p_iconClosed STRING, p_state STRING, p_content STRING)</tt><dl>
+<dd>
+<p> Set Item from parameters</p>
+<p>
+        <span><pre> define   r_item wc_treecordion.tItem
+ call r_item.Set(r_tree.id, "999", "", "Section 999", "Memory-16.png", "", "", "closed", "This is an new for &lt;B&gt;999&lt;/B&gt; section")</pre></span>
+      </p>
+</dd>
+<dd><dl>
+<dt><b>Parameters:</b></dt>
+<dd>
+<code>p_id</code> - Item ID<br><code>p_key</code> - Alternate key<br><code>p_text</code> - Text attribute<br><code>p_image</code> - Image attribute<br><code>p_iconOpen</code> - Icon for Open state<br><code>p_iconClosed</code> - Icon for Closed state<br><code>p_state</code> - Initial state of node (NOT CURRENTLY USED)<br><code>p_content</code> - Content for this node<br>
+</dd>
+</dl></dd>
+</dl>
+<hr>
+<h3><a id="tItem.Update">Update</a></h3>
+<tt>FUNCTION <b>Update</b>(o_node om.DomNode)</tt><dl>
+<dd>
+<p> Update node attributes from Item</p>
+<p>
+        <span><pre> define  o_parent, o_child om.DomNode, r_item wc_treecordion.tItem
+ let o_child = o_parent.createChild("Node")
+ ...
+ call r_item.Update(o_child)</pre></span>
+      </p>
+</dd>
+<dd><dl>
+<dt><b>Parameters:</b></dt>
+<dd>
+<code>o_node</code> - DOM node<br>
+</dd>
+</dl></dd>
+</dl>
+<hr>
+<a id="tTree"> </a><h3>tTree</h3>
+<tt>TYPE <b>tTree</b> RECORD<table border="0" cellpadding="0" cellspacing="0" class="member"><tr>
 <td>    </td>
 <td><table border="0" cellpadding="0" cellspacing="0" class="member">
 <tr><td>id STRING</td></tr>
@@ -151,49 +225,267 @@
 <dd></dd>
 <dd><dl></dl></dd>
 </dl>
-<hr>
-<h2>Functions</h2>
-<a id="Clear"> </a><h3>Clear</h3>
-<tt>FUNCTION <b>Clear</b>(r_tree <a href="#tTreeCordion">tTreeCordion</a>)</tt><dl>
+<h3>Methods</h3>
+<h3><a id="tTree.Clear">Clear</a></h3>
+<tt>FUNCTION <b>Clear</b>()</tt><dl>
 <dd>
 <p> Clear record: reset attributes on root node, and delete all children</p>
 <p>
-      <span><pre> define r_acc wc_treecordion.tTreeCordion
- call wc_treecordion.Clear(r_acc.*)</pre></span>
-    </p>
+        <span><pre> define r_tree wc_treecordion.tTree
+ call r_tree.Clear()</pre></span>
+      </p>
 </dd>
-<dd><dl>
-<dt><b>Parameters:</b></dt>
-<dd>
-<code>r_tree</code> - TreeCordion instance<br>
-</dd>
-</dl></dd>
+<dd><dl></dl></dd>
 </dl>
 <hr>
-<a id="Collapse"> </a><h3>Collapse</h3>
-<tt>FUNCTION <b>Collapse</b>(r_tree <a href="#tTreeCordion">tTreeCordion</a>, p_id STRING)</tt><dl>
+<h3><a id="tTree.Collapse">Collapse</a></h3>
+<tt>FUNCTION <b>Collapse</b>(p_id STRING)</tt><dl>
 <dd>
 <p> Collapse node, default is root node (all)</p>
 <p>
-      <span><pre> define r_acc tTreeCordion
- call wc_treecordion.Collapse(r_acc.*, "1")</pre></span>
-    </p>
+        <span><pre> define r_tree wc_treecordion.tTree, r_item wc_treecordion.tItem
+ call r_tree.Collapse(r_item.id)</pre></span>
+      </p>
 </dd>
 <dd><dl>
 <dt><b>Parameters:</b></dt>
 <dd>
-<code>r_tree</code> - TreeCordion instance<br><code>p_id</code> - Node ID<br>
+<code>p_id</code> - Node ID<br>
 </dd>
 </dl></dd>
 </dl>
 <hr>
-<a id="Create"> </a><h3>Create</h3>
-<tt>FUNCTION <b>Create</b>(p_field STRING) RETURNS <a href="#tTreeCordion">tTreeCordion</a></tt><dl>
+<h3><a id="tTree.Expand">Expand</a></h3>
+<tt>FUNCTION <b>Expand</b>(p_id STRING)</tt><dl>
+<dd>
+<p> Expand node, default is root node (all)</p>
+<p>
+        <span><pre> define r_tree wc_treecordion.tTree, r_item wc_treecordion.tItem
+ call r_tree.Expand(r_item.id)</pre></span>
+      </p>
+</dd>
+<dd><dl>
+<dt><b>Parameters:</b></dt>
+<dd>
+<code>p_id</code> - Node ID<br>
+</dd>
+</dl></dd>
+</dl>
+<hr>
+<h3><a id="tTree.Init">Init</a></h3>
+<tt>FUNCTION <b>Init</b>()</tt><dl>
+<dd>
+<p> Initialize contents of widget</p>
+<p>
+        <span><pre> define r_tree wc_treecordion.tTree
+ let r_tree.title = "Title"
+ ...
+ before input
+   call r_tree.Init()</pre></span>
+      </p>
+</dd>
+<dd><dl></dl></dd>
+</dl>
+<hr>
+<h3><a id="tTree.IsVisible">IsVisible</a></h3>
+<tt>FUNCTION <b>IsVisible</b>(p_id STRING) RETURNS BOOLEAN</tt><dl>
+<dd>
+<p> Is contents of node visible?</p>
+<p>
+        <span><pre> define r_tree wc_treecordion.tTree, r_item wc_treecordion.tItem
+ if r_tree.IsVisible(r_item.id)
+ then
+   message "contents of item ", r_item.id, " is visible"
+ end if</pre></span>
+      </p>
+</dd>
+<dd><dl>
+<dt><b>Parameters:</b></dt>
+<dd>
+<code>p_id</code> - Node ID<br>
+</dd>
+<dt><b>Returns:</b></dt>
+<dd>TRUE if visible, else FALSE<br>
+</dd>
+</dl></dd>
+</dl>
+<hr>
+<h3><a id="tTree.Item_Add">Item_Add</a></h3>
+<tt>FUNCTION <b>Item_Add</b>(p_parentID STRING, p_id STRING, p_key STRING, p_text STRING, p_image STRING, p_iconOpen STRING, p_iconClosed STRING, p_state STRING, p_content STRING) RETURNS STRING</tt><dl>
+<dd>
+<p> Add a child Item to a parent Item</p>
+<p>
+        <span><pre> define  r_tree wc_treecordion.tTree, r_item wc_treecordion.tItem, p_parentId, p_newID integer
+ ...
+ let p_newID = r_tree.Item_Add(p_parentId, p_id, "", "Section A", "ActivityMonitor-16.png", "", "", "closed", "This is content for &lt;B&gt;A&lt;/B&gt; section")</pre></span>
+      </p>
+</dd>
+<dd><dl>
+<dt><b>Parameters:</b></dt>
+<dd>
+<code>p_parentID</code> - Parent Item ID<br><code>p_id</code> - Item ID<br><code>p_key</code> - Alternate key<br><code>p_text</code> - Text attribute<br><code>p_image</code> - Image attribute<br><code>p_iconOpen</code> - Icon for Open state<br><code>p_iconClosed</code> - Icon for Closed state<br><code>p_state</code> - Initial state of node (NOT CURRENTLY USED)<br><code>p_content</code> - Content for this node<br>
+</dd>
+<dt><b>Returns:</b></dt>
+<dd>ID of node added<br>
+</dd>
+</dl></dd>
+</dl>
+<hr>
+<h3><a id="tTree.Item_Attach">Item_Attach</a></h3>
+<tt>FUNCTION <b>Item_Attach</b>(p_parentID STRING, r_item <a href="#tItem">tItem</a>) RETURNS STRING</tt><dl>
+<dd>
+<p> Add a child Item to a parent Item</p>
+<p>
+        <span><pre> define  r_tree wc_treecordion.tTree, r_item wc_treecordion.tItem, p_parentId, p_newID integer
+ ...
+ let p_newID = r_tree.Item_Add(p_parentId, r_item)</pre></span>
+      </p>
+</dd>
+<dd><dl>
+<dt><b>Parameters:</b></dt>
+<dd>
+<code>p_parentID</code> - Parent Item ID<br><code>r_item</code> - Item record<br>
+</dd>
+<dt><b>Returns:</b></dt>
+<dd>ID of node added<br>
+</dd>
+</dl></dd>
+</dl>
+<hr>
+<h3><a id="tTree.Item_Delete">Item_Delete</a></h3>
+<tt>FUNCTION <b>Item_Delete</b>(p_id STRING) RETURNS STRING</tt><dl>
+<dd>
+<p> Delete an Item and its descendents by ID</p>
+<p>
+        <span><pre> define  r_tree wc_treecordion.tTreeCordion, r_item wc_treecordion.tItem, p_currentID integer
+ let p_currentID = r_tree.Item_Delete(r_item.id)</pre></span>
+      </p>
+</dd>
+<dd><dl>
+<dt><b>Parameters:</b></dt>
+<dd>
+<code>p_id</code> - Item ID<br>
+</dd>
+</dl></dd>
+</dl>
+<hr>
+<h3><a id="tTree.Item_Get">Item_Get</a></h3>
+<tt>FUNCTION <b>Item_Get</b>(p_id STRING) RETURNS <a href="#tItem">tItem</a></tt><dl>
+<dd>
+<p> Get an Item by ID</p>
+<p>
+        <span><pre> define  r_tree wc_treecordion.tTree,r_iem wc_treecordion.tItem, p_id integer
+ let r_item = r_tree.Item_Get(p_id)</pre></span>
+      </p>
+</dd>
+<dd><dl>
+<dt><b>Parameters:</b></dt>
+<dd>
+<code>p_id</code> - Item ID<br>
+</dd>
+<dt><b>Returns:</b></dt>
+<dd>Record of the item node<br>
+</dd>
+</dl></dd>
+</dl>
+<hr>
+<h3><a id="tTree.Item_Update">Item_Update</a></h3>
+<tt>FUNCTION <b>Item_Update</b>(r_item <a href="#tItem">tItem</a>) RETURNS om.DomNode</tt><dl>
+<dd>
+<p> Update attributes of an Item</p>
+<p>
+        <span><pre>n DOM node of added child</pre></span>
+      </p>
+<p> define r_tree wc_treecordion.tTree, r_item wc_treecordion.tItem, p_id integer
+ ...
+ call r_tree.Item_Update(r_item)</p>
+</dd>
+<dd><dl>
+<dt><b>Parameters:</b></dt>
+<dd>
+<code>r_item</code> - Item record<br>
+</dd>
+<dt><b>Returns:</b></dt>
+<dd>DOM node of added child<br>
+</dd>
+</dl></dd>
+</dl>
+<hr>
+<h3><a id="tTree.Node">Node</a></h3>
+<tt>FUNCTION <b>Node</b>(p_id STRING) RETURNS om.DomNode</tt><dl>
+<dd>
+<p> Returns the om.DomNode by ID</p>
+<p>
+        <span><pre> define r_tree wc_treecordion.tTree, r_item wc_treecordion.tItem, o_node om.DomNode
+ let o_node = r_tree.Node(r_item.id)</pre></span>
+      </p>
+</dd>
+<dd><dl>
+<dt><b>Parameters:</b></dt>
+<dd>
+<code>p_id</code> - Item ID<br>
+</dd>
+<dt><b>Returns:</b></dt>
+<dd>DOM node of added child<br>
+</dd>
+</dl></dd>
+</dl>
+<hr>
+<h3><a id="tTree.Set">Set</a></h3>
+<tt>FUNCTION <b>Set</b>(p_id STRING, p_field STRING, p_title STRING, p_narrative STRING, p_imagePath STRING, p_iconOpen STRING, p_iconClosed STRING, po_doc om.DomDocument, po_dom om.DomNode, pf_func FUNCTION (p_id:STRING) RETURNS STRING)</tt><dl>
+<dd>
+<p> Set tTree from parameters</p>
+<p>
+        <span><pre> define r_tree wc_treecordion.tTree
+ call r_tree.Set(r_tree.id, "999", "", "Section 999", "Memory-16.png", "", "", "closed", "This is an new for &lt;B&gt;999&lt;/B&gt; section")</pre></span>
+      </p>
+</dd>
+<dd><dl>
+<dt><b>Parameters:</b></dt>
+<dd>
+<code>p_id</code> - Currently selected node ID<br><code>p_field</code> - string          Form field name<br><code>p_title</code> - string          Title text<br><code>p_narrative</code> - string      Narrative or description<br><code>p_imagePath</code> - string      Local file or URL image prefix<br><code>p_iconOpen</code> - string       Default ui-icon for open state<br><code>p_iconClosed</code> - string     Default ui-icon for closed state<br><code>po_doc</code> - om.DomDocument   DOM document<br><code>po_dom</code> - om.DomNode       Root DomNode of DOM document<br><code>pf_func</code> - Refers to function(p_id string) returns string<br>
+</dd>
+</dl></dd>
+</dl>
+<hr>
+<h3><a id="tTree.Show">Show</a></h3>
+<tt>FUNCTION <b>Show</b>(p_id STRING, p_show BOOLEAN)</tt><dl>
+<dd>
+<p> Show or hide a node</p>
+<p>
+        <span><pre> define r_tree wc_treecordion.tTree, r_item wc_treecordion.tItem
+ call r_tree.Show(r_item.id, TRUE)</pre></span>
+      </p>
+</dd>
+<dd><dl>
+<dt><b>Parameters:</b></dt>
+<dd>
+<code>p_id</code> - Node ID<br><code>p_show</code> - TRUE to show, else hide<br>
+</dd>
+</dl></dd>
+</dl>
+<hr>
+<h3><a id="tTree.XML">XML</a></h3>
+<tt>FUNCTION <b>XML</b>() RETURNS STRING</tt><dl>
+<dd>
+<p> Get XML string from document</p>
+<p>
+        <span><pre> define p_xml string,
+   r_tree wc_treecordion.tTree
+ let p_xml = r_tree.XML()</pre></span>
+      </p>
+</dd>
+<dd><dl></dl></dd>
+</dl>
+<hr>
+<h2>Functions</h2>
+<h3><a id="Create">Create</a></h3>
+<tt>FUNCTION <b>Create</b>(p_field STRING) RETURNS <a href="#tTree">tTree</a></tt><dl>
 <dd>
 <p> Creates a new instance of TreeCordion</p>
 <p>
-      <span><pre> define r_acc wc_treecordion.tTreeCordion
- call wc_treecordion.Create("formonly.p_treecordion") returning r_acc.*</pre></span>
+      <span><pre> define r_tree wc_treecordion.tTree
+ let r_tree = wc_treecordion.Create("formonly.p_treecordion")</pre></span>
     </p>
 </dd>
 <dd><dl>
@@ -207,241 +499,36 @@
 </dl></dd>
 </dl>
 <hr>
-<a id="Expand"> </a><h3>Expand</h3>
-<tt>FUNCTION <b>Expand</b>(r_tree <a href="#tTreeCordion">tTreeCordion</a>, p_id STRING)</tt><dl>
-<dd>
-<p> Expand node, default is root node (all)</p>
-<p>
-      <span><pre> define r_acc tTreeCordion
- call wc_treecordion.Expand(r_acc.*, "1")</pre></span>
-    </p>
-</dd>
-<dd><dl>
-<dt><b>Parameters:</b></dt>
-<dd>
-<code>r_tree</code> - TreeCordion instance<br><code>p_id</code> - Node ID<br>
-</dd>
-</dl></dd>
-</dl>
-<hr>
-<a id="Init"> </a><h3>Init</h3>
+<h3><a id="Init">Init</a></h3>
 <tt>FUNCTION <b>Init</b>()</tt><dl>
 <dd>
-<p> Initialize the widget</p>
+<p> Initialize the module</p>
 <p>
-      <span><pre> call wc_actree.Init()</pre></span>
+      <span><pre> call wc_treecordion.Init()</pre></span>
     </p>
 </dd>
 <dd><dl></dl></dd>
 </dl>
 <hr>
-<a id="IsVisible"> </a><h3>IsVisible</h3>
-<tt>FUNCTION <b>IsVisible</b>(r_tree <a href="#tTreeCordion">tTreeCordion</a>, p_id STRING) RETURNS boolean</tt><dl>
-<dd>
-<p> Is contents of node visible?</p>
-<p>
-      <span><pre> define r_acc tTreeCordion
- if wc_treecordion.IsVisible(r_acc.*, "2")
- then
-   message "contents of item 2 is visible"
- end if</pre></span>
-    </p>
-</dd>
-<dd><dl>
-<dt><b>Parameters:</b></dt>
-<dd>
-<code>r_tree</code> - TreeCordion instance<br><code>p_id</code> - Node ID<br>
-</dd>
-<dt><b>Returns:</b></dt>
-<dd>TRUE if visible, else FALSE<br>
-</dd>
-</dl></dd>
-</dl>
-<hr>
-<a id="Item_Add"> </a><h3>Item_Add</h3>
-<tt>FUNCTION <b>Item_Add</b>(r_tree <a href="#tTreeCordion">tTreeCordion</a>, p_parentId STRING, p_id STRING, p_key STRING, p_text STRING, p_image STRING, p_iconOpen STRING, p_iconClosed STRING, p_state STRING, p_content STRING) RETURNS om.DomNode</tt><dl>
-<dd>
-<p> Add a child Item to a parent Item</p>
-<p>
-      <span><pre> define  r_tree tTreeCordion, p_parentId, p_id integer
- call wc_treecordion.Item_Add(r_tree.*, p_parentId, p_id:=p_id+1, "", "Section A", "ActivityMonitor-16.png", "", "", "closed", "This is content for &lt;B&gt;A&lt;/B&gt; section")</pre></span>
-    </p>
-</dd>
-<dd><dl>
-<dt><b>Parameters:</b></dt>
-<dd>
-<code>r_tree</code> - TreeCordion instance<br><code>p_parentId</code> - Parent Item ID<br><code>p_id</code> - Item ID<br><code>p_key</code> - Alternate key<br><code>p_text</code> - Text attribute<br><code>p_image</code> - Image attribute<br><code>p_iconOpen</code> - Icon for Open state<br><code>p_iconClosed</code> - Icon for Closed state<br><code>p_state</code> - Initial state of node (NOT CURRENTLY USED)<br><code>p_content</code> - Content for this node<br>
-</dd>
-<dt><b>Returns:</b></dt>
-<dd>DOM node of added child<br>
-</dd>
-</dl></dd>
-</dl>
-<hr>
-<a id="Item_Delete"> </a><h3>Item_Delete</h3>
-<tt>FUNCTION <b>Item_Delete</b>(r_tree <a href="#tTreeCordion">tTreeCordion</a>, p_id STRING) RETURNS STRING</tt><dl>
-<dd>
-<p> Delete an Item and its descendents by ID</p>
-<p>
-      <span><pre> define  r_tree tTreeCordion, p_id integer
- call wc_treecordion.Item_Add(r_tree.*, p_parentId, p_id:=p_id+1, "Section A", "ActivityMonitor-16.png", "", "", "closed", "This is content for &lt;B&gt;A&lt;/B&gt; section")</pre></span>
-    </p>
-</dd>
-<dd><dl>
-<dt><b>Parameters:</b></dt>
-<dd>
-<code>r_tree</code> - TreeCordion instance<br><code>p_id</code> - Item ID<br>
-</dd>
-</dl></dd>
-</dl>
-<hr>
-<a id="Item_Get"> </a><h3>Item_Get</h3>
-<tt>FUNCTION <b>Item_Get</b>(r_tree <a href="#tTreeCordion">tTreeCordion</a>, p_id STRING) RETURNS <a href="#tItem">tItem</a></tt><dl>
-<dd>
-<p> Get an Item by ID</p>
-<p>
-      <span><pre> define  r_tree tTreeCordion, p_id integer
- call wc_treecordion.Item_Get(r_tree.*, p_id)</pre></span>
-    </p>
-</dd>
-<dd><dl>
-<dt><b>Parameters:</b></dt>
-<dd>
-<code>r_tree</code> - TreeCordion instance<br><code>p_id</code> - Item ID<br>
-</dd>
-<dt><b>Returns:</b></dt>
-<dd>Record of the item node<br>
-</dd>
-</dl></dd>
-</dl>
-<hr>
-<a id="Item_Update"> </a><h3>Item_Update</h3>
-<tt>FUNCTION <b>Item_Update</b>(r_tree <a href="#tTreeCordion">tTreeCordion</a>, p_id STRING, p_key STRING, p_text STRING, p_image STRING, p_iconOpen STRING, p_iconClosed STRING, p_state STRING, p_content STRING) RETURNS om.DomNode</tt><dl>
-<dd>
-<p> Update attributes of an Item</p>
-<p>
-      <span><pre>n DOM node of added child</pre></span>
-    </p>
-<p> define r_tree tTreeCordion, p_id integer
- call wc_treecordion.Item_Update(r_tree.*, p_id, "SecA", "Section A", "ActivityMonitor-16.png", "", "", "closed", "This is content for &lt;B&gt;A&lt;/B&gt; section")</p>
-</dd>
-<dd><dl>
-<dt><b>Parameters:</b></dt>
-<dd>
-<code>r_tree</code> - TreeCordion instance<br><code>p_id</code> - Item ID<br><code>p_key</code> - Alternate key<br><code>p_text</code> - Text attribute<br><code>p_image</code> - Image attribute<br><code>p_iconOpen</code> - Icon for Open state<br><code>p_iconClosed</code> - Icon for Closed state<br><code>p_state</code> - Initial state of node (NOT CURRENTLY USED)<br><code>p_content</code> - Content for this node<br>
-</dd>
-<dt><b>Returns:</b></dt>
-<dd>DOM node of added child<br>
-</dd>
-</dl></dd>
-</dl>
-<hr>
-<a id="Node"> </a><h3>Node</h3>
-<tt>FUNCTION <b>Node</b>(r_tree <a href="#tTreeCordion">tTreeCordion</a>, p_id STRING) RETURNS om.DomNode</tt><dl>
-<dd><p></p></dd>
-<dd><dl>
-<dt><b>Parameters:</b></dt>
-<dd>
-<code>r_tree</code> - TreeCordion instance<br><code>p_id</code> - Item ID<br>
-</dd>
-<dt><b>Returns:</b></dt>
-<dd>DOM node of added child<br>
-</dd>
-</dl></dd>
-</dl>
-<hr>
-<a id="Node_Add"> </a><h3>Node_Add</h3>
+<h3><a id="Node_Add">Node_Add</a></h3>
 <tt>FUNCTION <b>Node_Add</b>(o_parent om.DomNode, p_id STRING, p_key STRING, p_text STRING, p_image STRING, p_iconOpen STRING, p_iconClosed STRING, p_state STRING, p_content STRING) RETURNS om.DomNode</tt><dl>
 <dd>
-<p> Add a child node to a parent node</p>
+<p> Attach Item as a child node to a parent node</p>
 <p>
-      <span><pre> define  a_nodes dynamic array of om.DomNode,
- let a_nodes[p_depth] = wc_treecordion.Node_Add(a_nodes[p_depth-1], p_id:=p_id+1, "Section A", "ActivityMonitor-16.png", "", "", "closed", "This is content for &lt;B&gt;A&lt;/B&gt; section")</pre></span>
+      <span><pre> define a_nodes dynamic array of om.DomNode, r_tree wc_treecordion.tTree, r_item wc_treecordion.tItem
+ let a_nodes[p_depth] = wc_treecordion.Node_Add(a_nodes[p_depth-1], r_tree.id, "999", "", "Section 999", "Memory-16.png", "", "", "closed", "This is an new for &lt;B&gt;999&lt;/B&gt; section")</pre></span>
     </p>
 </dd>
 <dd><dl>
 <dt><b>Parameters:</b></dt>
 <dd>
-<code>o_parent</code> - Parent DOM node<br><code>p_id</code> - Node ID<br><code>p_key</code> - Alternate key<br><code>p_text</code> - Text attribute<br><code>p_image</code> - Image attribute<br><code>p_iconOpen</code> - Icon for Open state<br><code>p_iconClosed</code> - Icon for Closed state<br><code>p_state</code> - Current state of node (NOT CURRENTLY USED)<br><code>p_content</code> - Content for this node<br>
+<code>o_parent</code> - Parent DOM node<br><code>p_id</code> - Item ID<br><code>p_key</code> - Alternate key<br><code>p_text</code> - Text attribute<br><code>p_image</code> - Image attribute<br><code>p_iconOpen</code> - Icon for Open state<br><code>p_iconClosed</code> - Icon for Closed state<br><code>p_state</code> - State of node<br><code>p_content</code> - Content for this node<br>
 </dd>
 <dt><b>Returns:</b></dt>
 <dd>DOM node of added child<br>
 </dd>
 </dl></dd>
 </dl>
-<hr>
-<a id="Node_Set"> </a><h3>Node_Set</h3>
-<tt>FUNCTION <b>Node_Set</b>(o_node om.DomNode, p_id STRING, p_key STRING, p_text STRING, p_image STRING, p_iconOpen STRING, p_iconClosed STRING, p_state STRING, p_content STRING)</tt><dl>
-<dd>
-<p></p>
-<p>
-      <span><pre> define  o_parent, o_child om.DomNode
- let o_child = o_parent.createChild("Node")
- call Node_Set(o_child, p_id, p_key, p_text, p_image, p_iconOpen, p_iconClosed, p_state, p_content)</pre></span>
-    </p>
-</dd>
-<dd><dl>
-<dt><b>Parameters:</b></dt>
-<dd>
-<code>o_node</code> - <br><code>p_id</code> - Node ID<br><code>p_key</code> - Alternate key<br><code>p_text</code> - Text attribute<br><code>p_image</code> - Image attribute<br><code>p_iconOpen</code> - Icon for Open state<br><code>p_iconClosed</code> - Icon for Closed state<br><code>p_state</code> - Current state of node (NOT CURRENTLY USED)<br><code>p_content</code> - Content for this node<br>
-</dd>
-</dl></dd>
-</dl>
-<hr>
-<a id="Set"> </a><h3>Set</h3>
-<tt>FUNCTION <b>Set</b>(r_tree <a href="#tTreeCordion">tTreeCordion</a>)</tt><dl>
-<dd>
-<p> Set initial contents of widget</p>
-<p>
-      <span><pre> define r_acc tTreeCordion
- let r_acc.title = "Title"
- ...
- call wc_treecordion.Set(r_acc.*)</pre></span>
-    </p>
-</dd>
-<dd><dl>
-<dt><b>Parameters:</b></dt>
-<dd>
-<code>r_tree</code> - TreeCordion instance<br>
-</dd>
-</dl></dd>
-</dl>
-<hr>
-<a id="Show"> </a><h3>Show</h3>
-<tt>FUNCTION <b>Show</b>(r_tree <a href="#tTreeCordion">tTreeCordion</a>, p_id STRING, p_show BOOLEAN)</tt><dl>
-<dd>
-<p> Show or hide a node</p>
-<p>
-      <span><pre> define r_acc tTreeCordion
- call wc_treecordion.Show(r_acc.*, "1", TRUE)</pre></span>
-    </p>
-</dd>
-<dd><dl>
-<dt><b>Parameters:</b></dt>
-<dd>
-<code>r_tree</code> - TreeCordion instance<br><code>p_id</code> - Node ID<br><code>p_show</code> - TRUE to show, else hide<br>
-</dd>
-</dl></dd>
-</dl>
-<hr>
-<a id="XML"> </a><h3>XML</h3>
-<tt>FUNCTION <b>XML</b>(r_tree <a href="#tTreeCordion">tTreeCordion</a>) RETURNS STRING</tt><dl>
-<dd>
-<p> Get XML string from document</p>
-<p>
-      <span><pre> define p_xml string,
-   r_acc tTreeCordion
- let p_xml = wc_treecordion.XML(r_acc.*)</pre></span>
-    </p>
-</dd>
-<dd><dl>
-<dt><b>Parameters:</b></dt>
-<dd>
-<code>r_tree</code> - TreeCordion instance<br>
-</dd>
-</dl></dd>
-</dl>
-<hr>
 <table BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY=""><tr>
 <td><a href="../../overview-summary.html">Overview</a></td>
 <td><a href="package-summary.html">Package</a></td>

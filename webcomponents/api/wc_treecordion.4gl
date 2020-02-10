@@ -1,3 +1,37 @@
+#
+# wc_treecordion  TreeCordion webcomponent API
+#
+# CLASS Methods
+#
+#   Init         Initialize
+#   Create       Create an instance of tTree
+#   Node_Add     Attach Item as a child node to a parent node
+#
+# OBJECT Methods
+#
+# tTree::
+#   Clear        Clear tTree record
+#   Set          Set Tree from parameters
+#   Init         Initialize contents of widget
+#   Show         Show or hide a node
+#   IsVisible    Is contents of node visible?
+#   Expand       Expand node, default is root node (all)
+#   Collapse     Collapse node, default is root node (all)
+#   Node         Returns the om.DomNode by ID
+#   XML          Get XML string from document
+#
+#   Item_Add     Add a child Item to a parent Item
+#   Item_Attach  Attach an Item to a parent Item
+#   Item_Delete  Delete an Item and its descendents by ID
+#   Item_Get     Get an Item by ID
+#   Item_Update  Update attributes of an Item
+#
+# tItem::
+#   Set          Set Item from parameters
+#   Attach       Attach Item as a child node to a parent node
+#   Update       Set node attributes from Item
+#
+
 import util
 
 #
@@ -5,7 +39,7 @@ import util
 #
 public type
   -- TreeCordian data structure
-  tTreeCordion record
+  tTree record
     id string,            # Currently selected node ID
     field string,         # Form field name
     title string,         # Title text
@@ -25,7 +59,7 @@ public type
     image string,         # Name of image resource
     iconOpen string,      # Local ui-icon for open state
     iconClosed string,    # Local ui-icon for closed stste
-    state string,         # Current state of Item
+    state string,         # State of Item
     content string        # HTML content
   end record
 
@@ -36,16 +70,19 @@ private
 
 
 
+
+
+
 #
-# PUBLIC METHODS
+# CLASS METHODS ----------------------------------
 #    
 
 #
 #! Init
-#+ Initialize the widget
+#+ Initialize the module
 #+
 #+ @code
-#+ call wc_actree.Init()
+#+ call wc_treecordion.Init()
 #
 public function Init()
   
@@ -61,13 +98,14 @@ end function
 #+ @return            TreeCordion record
 #+
 #+ @code
-#+ define r_acc wc_treecordion.tTreeCordion
-#+ call wc_treecordion.Create("formonly.p_treecordion") returning r_acc.*
+#+ define r_tree wc_treecordion.tTree
+#+ let r_tree = wc_treecordion.Create("formonly.p_treecordion")
 #
-public function Create(p_field string) returns tTreeCordion
+public function Create(p_field string) 
+  returns tTree
 
   define
-    r_tree tTreeCordion
+    r_tree tTree
 
   let r_tree.field = p_field
   let r_tree.doc = om.DomDocument.create("TreeCordion")
@@ -80,206 +118,365 @@ end function
 
 
 #
-#! Clear
-#+ Clear record: reset attributes on root node, and delete all children
+#! Node_Add
+#+ Attach Item as a child node to a parent node
 #+
-#+ @param r_tree    TreeCordion instance
+#+ @param o_parent       Parent DOM node
+#+ @param p_id           Item ID
+#+ @param p_key          Alternate key
+#+ @param p_text         Text attribute
+#+ @param p_image        Image attribute
+#+ @param p_iconOpen     Icon for Open state
+#+ @param p_iconClosed   Icon for Closed state
+#+ @param p_state        State of node
+#+ @param p_content      Content for this node
+#+
+#+ @returnType om.DomNode
+#+ @return DOM node of added child
 #+
 #+ @code
-#+ define r_acc wc_treecordion.tTreeCordion
-#+ call wc_treecordion.Clear(r_acc.*)
+#+ define a_nodes dynamic array of om.DomNode, r_tree wc_treecordion.tTree, r_item wc_treecordion.tItem
+#+ let a_nodes[p_depth] = wc_treecordion.Node_Add(a_nodes[p_depth-1], r_tree.id, "999", "", "Section 999", "Memory-16.png", "", "", "closed", "This is an new for <B>999</B> section")
 #
-public function Clear(r_tree tTreeCordion)
+public function Node_Add(o_parent om.DomNode, p_id string, p_key string, p_text string, p_image string, p_iconOpen string, p_iconClosed string, p_state string, p_content string)
+  returns om.DomNode
+
+  define
+    r_item tItem
+
+  call r_item.Set(p_id,  p_key, p_text, p_image, p_iconOpen, p_iconClosed, p_state, p_content)
+
+  return r_item.Attach(o_parent)
+  
+end function
+
+
+
+#
+# tTree OBJECT METHODS -----------------------------
+#
+
+#
+#! tTree::Clear
+#+ Clear record: reset attributes on root node, and delete all children
+#+
+#+ @code
+#+ define r_tree wc_treecordion.tTree
+#+ call r_tree.Clear()
+#
+public function (this tTree) Clear()
 
   -- reset attributes on root node, and delete all children
-
-  if r_tree.dom is not NULL
+  if this.dom is not NULL
   then
-    call r_tree.dom.removeChild(r_tree.dom)
-    let r_tree.dom = r_tree.doc.getDocumentElement()
+    call this.dom.removeChild(this.dom)
+    let this.dom = this.doc.getDocumentElement()
   end if
   
 end function
 
 
+
 #
-#! Set
-#+ Set initial contents of widget
-#+
-#+ @param r_tree  TreeCordion instance
+#! tTree::Set
+#+ Set tTree from parameters
+#
+#+ @param p_id                    Currently selected node ID
+#+ @param p_field string          Form field name
+#+ @param p_title string          Title text
+#+ @param p_narrative string      Narrative or description
+#+ @param p_imagePath string      Local file or URL image prefix
+#+ @param p_iconOpen string       Default ui-icon for open state
+#+ @param p_iconClosed string     Default ui-icon for closed state
+#+ @param po_doc om.DomDocument   DOM document
+#+ @param po_dom om.DomNode       Root DomNode of DOM document
+#+ @param pf_func                 Refers to function(p_id string) returns string
 #+
 #+ @code
-#+ define r_acc tTreeCordion
-#+ let r_acc.title = "Title"
-#+ ...
-#+ call wc_treecordion.Set(r_acc.*)
+#+ define r_tree wc_treecordion.tTree
+#+ call r_tree.Set(r_tree.id, "999", "", "Section 999", "Memory-16.png", "", "", "closed", "This is an new for <B>999</B> section")
 #
-public function Set(r_tree tTreeCordion)
+public function (this tTree) Set (p_id string, p_field string, p_title string, p_narrative string, p_imagePath string, p_iconOpen string, p_iconClosed string, po_doc om.DomDocument, po_dom om.DomNode, pf_func function(p_id string) returns string)
 
-  call r_tree.dom.setAttribute("title", r_tree.title)
-  call r_tree.dom.setAttribute("narrative", r_tree.narrative)
-  call r_tree.dom.setAttribute("imagePath", r_tree.imagePath)
-  call r_tree.dom.setAttribute("iconClosed", r_tree.iconClosed)
-  call r_tree.dom.setAttribute("iconOpen", r_tree.iconOpen)
-  call ui.Interface.frontCall("webcomponent", "call", [r_tree.field, "Set", XML(r_tree.*)], [])
+  let this.id = p_id
+  let this.field = p_field
+  let this.title = p_title
+  let this.narrative = p_narrative
+  let this.imagePath = p_imagePath
+  let this.iconOpen = p_iconOpen
+  let this.iconClosed = p_iconClosed
+  let this.doc = po_doc
+  let this.dom = po_dom
+  let this.Id_New = pf_func
+
+end function
+
+
+#
+#! tTree::Init
+#+ Initialize contents of widget
+#+
+#+ @code
+#+ define r_tree wc_treecordion.tTree
+#+ let r_tree.title = "Title"
+#+ ...
+#+ before input
+#+   call r_tree.Init()
+#
+public function (this tTree) Init()
+
+  call this.dom.setAttribute("title", this.title)
+  call this.dom.setAttribute("narrative", this.narrative)
+  call this.dom.setAttribute("imagePath", this.imagePath)
+  call this.dom.setAttribute("iconClosed", this.iconClosed)
+  call this.dom.setAttribute("iconOpen", this.iconOpen)
+  call ui.Interface.frontCall("webcomponent", "call", [this.field, "Set", this.XML()], [])
   
 end function
 
 
 #
-#! Show
+#! tTree::Show
 #+ Show or hide a node
 #+
-#+ @param r_tree    TreeCordion instance
 #+ @param p_id      Node ID
 #+ @param p_show    TRUE to show, else hide
 #+
 #+ @code
-#+ define r_acc tTreeCordion
-#+ call wc_treecordion.Show(r_acc.*, "1", TRUE)
+#+ define r_tree wc_treecordion.tTree, r_item wc_treecordion.tItem
+#+ call r_tree.Show(r_item.id, TRUE)
 #
-public function Show(r_tree tTreeCordion, p_id string, p_show boolean)
-  call ui.Interface.frontCall("webcomponent", "call", [r_tree.field, "Show", p_id, p_show], [])
+public function (this tTree) Show(p_id string, p_show boolean)
+  call ui.Interface.frontCall("webcomponent", "call", [this.field, "Show", p_id, p_show], [])
 end function
 
 
 #
-#! IsVisible
+#! tTree::IsVisible
 #+ Is contents of node visible?
 #+
-#+ @param r_tree    TreeCordion instance
 #+ @param p_id      Node ID
 #+
 #+ @returnType boolean
 #+ @return TRUE if visible, else FALSE
 #+
 #+ @code
-#+ define r_acc tTreeCordion
-#+ if wc_treecordion.IsVisible(r_acc.*, "2")
+#+ define r_tree wc_treecordion.tTree, r_item wc_treecordion.tItem
+#+ if r_tree.IsVisible(r_item.id)
 #+ then
-#+   message "contents of item 2 is visible"
+#+   message "contents of item ", r_item.id, " is visible"
 #+ end if
 #
-public function IsVisible(r_tree tTreeCordion, p_id string)
+public function (this tTree) IsVisible(p_id string)
+  returns (boolean)
+
   define
     p_visible boolean
     
-  call ui.Interface.frontCall("webcomponent", "call", [r_tree.field, "IsVisible", p_id], [p_visible])
+  call ui.Interface.frontCall("webcomponent", "call", [this.field, "IsVisible", p_id], [p_visible])
 
   return p_visible
 end function
 
 
 #
-#! Expand
+#! tTree::Expand
 #+ Expand node, default is root node (all)
 #+
-#+ @param r_tree    TreeCordion instance
 #+ @param p_id      Node ID
 #+
 #+ @code
-#+ define r_acc tTreeCordion
-#+ call wc_treecordion.Expand(r_acc.*, "1")
+#+ define r_tree wc_treecordion.tTree, r_item wc_treecordion.tItem
+#+ call r_tree.Expand(r_item.id)
 #
-public function Expand(r_tree tTreeCordion, p_id string)
-  call ui.Interface.frontCall("webcomponent", "call", [r_tree.field, "Expand", p_id], [])
+public function (this tTree) Expand(p_id string)
+  call ui.Interface.frontCall("webcomponent", "call", [this.field, "Expand", p_id], [])
 end function
 
 
 #
-#! Collapse
+#! tTree::Collapse
 #+ Collapse node, default is root node (all)
 #+
-#+ @param r_tree    TreeCordion instance
 #+ @param p_id      Node ID
 #+
 #+ @code
-#+ define r_acc tTreeCordion
-#+ call wc_treecordion.Collapse(r_acc.*, "1")
+#+ define r_tree wc_treecordion.tTree, r_item wc_treecordion.tItem
+#+ call r_tree.Collapse(r_item.id)
 #
-public function Collapse(r_tree tTreeCordion, p_id string)
-  call ui.Interface.frontCall("webcomponent", "call", [r_tree.field, "Collapse", p_id], [])
+public function (this tTree) Collapse(p_id string)
+  call ui.Interface.frontCall("webcomponent", "call", [this.field, "Collapse", p_id], [])
 end function
 
 
 #
-#! Item_Add 
-#+ Add a child Item to a parent Item
+#! tTree::Node
+#+ Returns the om.DomNode by ID
 #+
-#+ @param r_tree        TreeCordion instance
-#+ @param p_parentId    Parent Item ID
 #+ @param p_id          Item ID
-#+ @param p_key         Alternate key
-#+ @param p_text        Text attribute
-#+ @param p_image       Image attribute
-#+ @param p_iconOpen    Icon for Open state
-#+ @param p_iconClosed  Icon for Closed state
-#+ @param p_state       Initial state of node (NOT CURRENTLY USED)
-#+ @param p_content     Content for this node
 #+
 #+ @returnType om.DomNode
 #+ @return DOM node of added child
 #+
 #+ @code
-#+ define  r_tree tTreeCordion, p_parentId, p_id integer
-#+ call wc_treecordion.Item_Add(r_tree.*, p_parentId, p_id:=p_id+1, "", "Section A", "ActivityMonitor-16.png", "", "", "closed", "This is content for <B>A</B> section")
+#+ define r_tree wc_treecordion.tTree, r_item wc_treecordion.tItem, o_node om.DomNode
+#+ let o_node = r_tree.Node(r_item.id)
 #
-public function Item_Add(r_tree tTreeCordion, p_parentId string, p_id string, p_key string, p_text string, p_image string, p_iconOpen string, p_iconClosed string, p_state string, p_content string)
+public function (this tTree) Node(p_id string)
+  returns (om.DomNode)
+
+  define
+    ol_nodes om.NodeList
+
+  if p_id.getLength()
+  then
+    let ol_nodes = this.dom.selectByPath("//Node[@id='" || p_id || "']")
+    if ol_nodes.getLength()
+    then
+      -- return just the first node
+      return ol_nodes.item(1)
+    end if
+  end if
+
+  return NULL
+  
+end function
+
+
+#
+#! tTree::XML
+#+ Get XML string from document
+#+
+#+ @returnType string
+#+ return XML string of TreeCordion's DOM tree
+#+
+#+ @code
+#+ define p_xml string,
+#+   r_tree wc_treecordion.tTree
+#+ let p_xml = r_tree.XML()
+#
+public function (this tTree) XML()
+  returns string
+  return this.dom.toString()
+end function
+
+
+#
+#! tTree::Item_Add
+#+ Add a child Item to a parent Item
+#+
+#+ @param p_parentId   Parent Item ID
+#+ @param p_id           Item ID
+#+ @param p_key          Alternate key
+#+ @param p_text         Text attribute
+#+ @param p_image        Image attribute
+#+ @param p_iconOpen     Icon for Open state
+#+ @param p_iconClosed   Icon for Closed state
+#+ @param p_state        Initial state of node (NOT CURRENTLY USED)
+#+ @param p_content      Content for this node
+#+
+#+ @returnType string
+#+ @return ID of node added
+#+
+#+ @code
+#+ define  r_tree wc_treecordion.tTree, r_item wc_treecordion.tItem, p_parentId, p_newID integer
+#+ ...
+#+ let p_newID = r_tree.Item_Add(p_parentId, p_id, "", "Section A", "ActivityMonitor-16.png", "", "", "closed", "This is content for <B>A</B> section")
+#
+public function (this tTree) Item_Add(p_parentID string, p_id string, p_key string, p_text string, p_image string, p_iconOpen string, p_iconClosed string, p_state string, p_content string)
+  returns (string)
+
+  define
+    r_item tItem
+
+  call r_item.Set(p_id, p_key, p_text, p_image, p_iconOpen, p_iconClosed, p_state, p_content)
+  return this.Item_Attach(p_parentID, r_item)
+
+end function
+
+
+#
+#! tTree::Item_Attach
+#+ Add a child Item to a parent Item
+#+
+#+ @param p_parentId   Parent Item ID
+#+ @param r_item       Item record
+#+
+#+ @returnType string
+#+ @return ID of node added
+#+
+#+ @code
+#+ define  r_tree wc_treecordion.tTree, r_item wc_treecordion.tItem, p_parentId, p_newID integer
+#+ ...
+#+ let p_newID = r_tree.Item_Add(p_parentId, r_item)
+#
+public function (this tTree) Item_Attach(p_parentID string, r_item tItem)
+  returns (string)
 
   define
     o_parent om.DomNode,
     o_item om.DomNode
 
   -- Find the parent node by ID
-  let o_parent = Node(r_tree.*, p_parentId)
+  let o_parent = this.Node(p_parentId)
   if o_parent is NULL
   then
-    let o_parent = r_tree.dom
+    let o_parent = this.dom
   end if
 
-  if p_parentID = p_id
+  if p_parentID = r_item.id
   then
-    let p_id = NULL
+    let r_item.id = NULL
   end if
   
   -- New ID?
-  let p_id = r_tree.Id_New(p_id)
+  let r_item.id = this.Id_New(r_item.id)
 
   -- Parent and child can't have the same ID
-  if p_parentId = p_id
+  if p_parentId = r_item.id
   then
     return ""
   end if
 
   -- Check if Id has been used before
-  if Node(r_tree.*, p_id) is not NULL
+  if this.Node(r_item.id) is not NULL
   then
     return ""
   end if
   
   -- Add the Node
-  let o_item = Node_Add(o_parent, p_id, p_key, p_text, p_image, p_iconOpen, p_iconClosed, p_state, p_content)
+  #%%%REC let o_item = Node_Add(o_parent, p_id, p_key, p_text, p_image, p_iconOpen, p_iconClosed, p_state, p_content)
+  let o_item = r_item.Attach(o_parent)
   
   -- Refresh the New Item in Widget
-  call ui.Interface.frontCall("webcomponent", "call", [r_tree.field, "Item_Add", p_parentId, p_id, p_text, p_image, p_iconOpen, p_iconClosed, p_state, p_content], [])
+  call ui.Interface.frontCall("webcomponent", "call", [this.field, "Item_Add",
+    p_parentId,
+    r_item.id,
+    r_item.text,
+    r_item.image,
+    r_item.iconOpen,
+    r_item.iconClosed,
+    r_item.state,
+    r_item.content],
+    [])
 
-  return p_id
+  return r_item.id
   
 end function
 
 
 #
-#! Item_Delete
+#! tTree::Item_Delete
 #+ Delete an Item and its descendents by ID
 #+
-#+ @param r_tree        TreeCordion instance
 #+ @param p_id          Item ID
 #+
 #+ @code
-#+ define  r_tree tTreeCordion, p_id integer
-#+ call wc_treecordion.Item_Add(r_tree.*, p_parentId, p_id:=p_id+1, "Section A", "ActivityMonitor-16.png", "", "", "closed", "This is content for <B>A</B> section")
+#+ define  r_tree wc_treecordion.tTreeCordion, r_item wc_treecordion.tItem, p_currentID integer
+#+ let p_currentID = r_tree.Item_Delete(r_item.id)
 #
-public function Item_Delete(r_tree tTreeCordion, p_id string) returns string
+public function (this tTree) Item_Delete(p_id string)
+  returns string
 
   define
     o_item om.DomNode,
@@ -288,7 +485,7 @@ public function Item_Delete(r_tree tTreeCordion, p_id string) returns string
     
     
   -- Find the parent node by ID
-  let o_item = Node(r_tree.*, p_id)
+  let o_item = this.Node(p_id)
   if o_item is NULL
   then
     return NULL
@@ -296,7 +493,7 @@ public function Item_Delete(r_tree tTreeCordion, p_id string) returns string
   let o_parent = o_item.getParent()
 
   -- Refresh to remove Item form Widget
-  call ui.Interface.frontCall("webcomponent", "call", [r_tree.field, "Item_Delete", p_id], [])
+  call ui.Interface.frontCall("webcomponent", "call", [this.field, "Item_Delete", p_id], [])
 
   -- Find the next "current" node once item has been deleted
   -- Try previous sib, next sib, otherwise parent
@@ -312,27 +509,27 @@ end function
 
 
 #
-#! Item_Get
+#! tTree::Item_Get
 #+ Get an Item by ID
 #+
-#+ @param r_tree        TreeCordion instance
 #+ @param p_id          Item ID
 #+
 #+ @returnType tItem
 #+ @return Record of the item node
 #+
 #+ @code
-#+ define  r_tree tTreeCordion, p_id integer
-#+ call wc_treecordion.Item_Get(r_tree.*, p_id)
+#+ define  r_tree wc_treecordion.tTree,r_iem wc_treecordion.tItem, p_id integer
+#+ let r_item = r_tree.Item_Get(p_id)
 #
-public function Item_Get(r_tree tTreeCordion, p_id string) returns tItem
+public function (this tTree) Item_Get(p_id string) 
+  returns (tItem)
 
   define
     r_item tItem,
     o_item om.DomNode
 
   -- Get node
-  let o_item = Node(r_tree.*, p_id)
+  let o_item = this.Node(p_id)
 
   -- Extract all the attributes
   if (o_item is not NULL)
@@ -343,115 +540,113 @@ public function Item_Get(r_tree tTreeCordion, p_id string) returns tItem
     let r_item.image = o_item.getAttribute("image")
     let r_item.iconOpen = o_item.getAttribute("iconOpen")
     let r_item.iconClosed = o_item.getAttribute("iconClosed")
-    let r_item.state = iif(IsVisible(r_tree.*, p_id), 'open', 'closed')
+    let r_item.state = iif(this.IsVisible(p_id), 'open', 'closed')
     let r_item.content = o_item.getAttribute("content")
   end if
   
-  return r_item.*
+  return r_item
   
 end function
 
 
 #
-#! Item_Update
+#! tTree::Item_Update
 #+ Update attributes of an Item
 #+
-#+ @param r_tree        TreeCordion instance
-#+ @param p_id          Item ID
-#+ @param p_key         Alternate key
-#+ @param p_text        Text attribute
-#+ @param p_image       Image attribute
-#+ @param p_iconOpen    Icon for Open state
-#+ @param p_iconClosed  Icon for Closed state
-#+ @param p_state       Initial state of node (NOT CURRENTLY USED)
-#+ @param p_content     Content for this node
+#+ @param r_item       Item record
 #+
 #+ @returnType om.DomNode
 #+ @return DOM node of added child
 #+
 #+ @code
 #+ 
-#+ define r_tree tTreeCordion, p_id integer
-#+ call wc_treecordion.Item_Update(r_tree.*, p_id, "SecA", "Section A", "ActivityMonitor-16.png", "", "", "closed", "This is content for <B>A</B> section")
+#+ define r_tree wc_treecordion.tTree, r_item wc_treecordion.tItem, p_id integer
+#+ ...
+#+ call r_tree.Item_Update(r_item)
 #
-public function Item_Update(r_tree tTreeCordion, p_id string, p_key string, p_text string, p_image string, p_iconOpen string, p_iconClosed string, p_state string, p_content string)
+public function (this tTree) Item_Update(r_item tItem)
 
   define
     o_item om.DomNode
 
   -- Find the node by ID
-  let o_item = Node(r_tree.*, p_id)
+  let o_item = this.Node(r_item.id)
   if o_item is NULL
   then
     return
   end if
 
   -- Set attributes of Node
-  call Node_Set(o_item, p_id, p_key, p_text, p_image, p_iconOpen, p_iconClosed, p_state, p_content)
+  call r_item.Update(o_item)
   
   -- Refresh the Item in Widget
-  call ui.Interface.frontCall("webcomponent", "call", [r_tree.field, "Item_Set", p_id, p_text, p_image, p_iconOpen, p_iconClosed, p_state, p_content], [])
+  call ui.Interface.frontCall("webcomponent", "call", [this.field, "Item_Set", r_item.*], [])
   
 end function
 
 
+
+
+
+
+
 #
-#! Node
-#+
-#+ @param r_tree        TreeCordion instance
-#+ @param p_id          Item ID
-#+
-#+ @returnType om.DomNode
-#+ @return DOM node of added child
+# tItem::Methods
 #
-public function Node(r_tree tTreeCordion, p_id string)
 
-  define
-    ol_nodes om.NodeList
 
-  if p_id.getLength()
-  then
-    let ol_nodes = r_tree.dom.selectByPath("//Node[@id='" || p_id || "']")
-    if ol_nodes.getLength()
-    then
-      -- return just the first node
-      return ol_nodes.item(1)
-    end if
-  end if
+#
+#! tItem::Set
+#+ Set Item from parameters
+#+
+#+ @param  p_id           Item ID
+#+ @param  p_key          Alternate key
+#+ @param  p_text         Text attribute
+#+ @param  p_image        Image attribute
+#+ @param  p_iconOpen     Icon for Open state
+#+ @param  p_iconClosed   Icon for Closed state
+#+ @param  p_state        Initial state of node (NOT CURRENTLY USED)
+#+ @param  p_content      Content for this node
+#+
+#+ @code
+#+ define   r_item wc_treecordion.tItem
+#+ call r_item.Set(r_tree.id, "999", "", "Section 999", "Memory-16.png", "", "", "closed", "This is an new for <B>999</B> section")
+#
+public function (this tItem) Set(p_id string, p_key string, p_text string, p_image string, p_iconOpen string, p_iconClosed string, p_state string, p_content string)
 
-  return NULL
-  
+  let this.id = p_id
+  let this.key = p_key
+  let this.text = p_text
+  let this.image = p_image
+  let this.iconOpen = p_iconOpen
+  let this.iconClosed = p_iconClosed
+  let this.state = p_state
+  let this.content = p_content
+
 end function
 
 
 #
-#! Node_Add 
-#+ Add a child node to a parent node
+#! tItem::Attach
+#+ Attach Item as a child node to a parent node
 #+
 #+ @param o_parent      Parent DOM node
-#+ @param p_id          Node ID
-#+ @param p_key         Alternate key
-#+ @param p_text        Text attribute
-#+ @param p_image       Image attribute
-#+ @param p_iconOpen    Icon for Open state
-#+ @param p_iconClosed  Icon for Closed state
-#+ @param p_state       Current state of node (NOT CURRENTLY USED)
-#+ @param p_content     Content for this node
 #+
 #+ @returnType om.DomNode
 #+ @return DOM node of added child
 #+
 #+ @code
-#+ define  a_nodes dynamic array of om.DomNode,
-#+ let a_nodes[p_depth] = wc_treecordion.Node_Add(a_nodes[p_depth-1], p_id:=p_id+1, "Section A", "ActivityMonitor-16.png", "", "", "closed", "This is content for <B>A</B> section")
+#+ define a_nodes dynamic array of om.DomNode, r_item wc_treecordion.tItem
+#+ let a_nodes[p_depth] = r_item.Attach(a_nodes[p_depth-1])
 #
-public function Node_Add(o_parent om.DomNode, p_id string, p_key string, p_text string, p_image string, p_iconOpen string, p_iconClosed string, p_state string, p_content string) returns om.DomNode
+public function (this tItem) Attach(o_parent om.DomNode)
+  returns om.DomNode
 
   define
     o_child om.DomNode
 
   let o_child = o_parent.createChild("Node")
-  call Node_Set(o_child, p_id, p_key, p_text, p_image, p_iconOpen, p_iconClosed, p_state, p_content)
+  call this.Update(o_child)
 
   return o_child
   
@@ -459,57 +654,33 @@ end function
 
 
 #
-# Node_Set      Set node attributes
+#! tItem::Update
+#+ Update node attributes from Item
 #+
-#+ @param o_parent      Parent DOM node
-#+ @param p_id          Node ID
-#+ @param p_key         Alternate key
-#+ @param p_text        Text attribute
-#+ @param p_image       Image attribute
-#+ @param p_iconOpen    Icon for Open state
-#+ @param p_iconClosed  Icon for Closed state
-#+ @param p_state       Current state of node (NOT CURRENTLY USED)
-#+ @param p_content     Content for this node
+#+ @param o_node        DOM node
 #+
 #+ @code
-#+ define  o_parent, o_child om.DomNode
+#+ define  o_parent, o_child om.DomNode, r_item wc_treecordion.tItem
 #+ let o_child = o_parent.createChild("Node")
-#+ call Node_Set(o_child, p_id, p_key, p_text, p_image, p_iconOpen, p_iconClosed, p_state, p_content)
+#+ ...
+#+ call r_item.Update(o_child)
 #
-public function Node_Set(o_node om.DomNode, p_id string, p_key string, p_text string, p_image string, p_iconOpen string, p_iconClosed string, p_state string, p_content string)
+public function (this tItem) Update(o_node om.DomNode)
 
   if o_node is not NULL
   then
-    call o_node.setAttribute("id", p_id)
-    call o_node.setAttribute("key", p_key)
-    call o_node.setAttribute("text", p_text)
-    call o_node.setAttribute("image", p_image) 
-    call o_node.setAttribute("iconOpen", p_iconOpen)
-    call o_node.setAttribute("iconClosed", p_iconClosed)
-    call o_node.setAttribute("state", p_state)
-    call o_node.setAttribute("content", p_content)
+    call o_node.setAttribute("id", this.id)
+    call o_node.setAttribute("key", this.key)
+    call o_node.setAttribute("text", this.text)
+    call o_node.setAttribute("image", this.image)
+    call o_node.setAttribute("iconOpen", this.iconOpen)
+    call o_node.setAttribute("iconClosed", this.iconClosed)
+    call o_node.setAttribute("state", this.state)
+    call o_node.setAttribute("content", this.content)
   end if
   
 end function
 
-
-#
-#! XML
-#+ Get XML string from document
-#+
-#+ @param r_tree    TreeCordion instance
-#+
-#+ @returnType string
-#+ return XML string of TreeCordion's DOM tree
-#+
-#+ @code
-#+ define p_xml string,
-#+   r_acc tTreeCordion
-#+ let p_xml = wc_treecordion.XML(r_acc.*)
-#
-public function XML(r_tree tTreeCordion) returns string
-  return r_tree.dom.toString()
-end function
 
 
 

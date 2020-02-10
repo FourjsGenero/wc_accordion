@@ -22,10 +22,10 @@
 <a id="type_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" class="summary">
 <tr><th class="summary" colspan="1">TYPE Summary</th></tr>
 <tr><td class="summary-text">
-<b><a href="#tAccordion">tAccordion</a></b> RECORD &lt;anonymous wc_accordion R3&gt;<br>
+<b><a href="#tAccordion">tAccordion</a></b> RECORD<br>
 </td></tr>
 <tr><td class="summary-text">
-<b><a href="#tSection">tSection</a></b> RECORD &lt;anonymous wc_accordion R1&gt;<br>
+<b><a href="#tSection">tSection</a></b> RECORD<br>
 </td></tr>
 </table>
 <br><a id="function_summary"></a><table border="1" width="100%" cellpadding="3" cellspacing="0" class="summary">
@@ -33,17 +33,17 @@
 <tr>
 <td class="summary-text"></td>
 <td class="summary-text">
-<b><a href="#Init">Init</a></b>()<br> Initialize</td>
+<b><a href="#Init">Init</a></b>()<br> Initialize the module</td>
 </tr>
 <tr>
 <td class="summary-text"></td>
 <td class="summary-text">
-<b><a href="#Serialize">Serialize</a></b>(r_accordion <a href="#tAccordion">tAccordion</a>) RETURNS STRING<br> Serialize an accordion structure</td>
+<b><a href="#tAccordion.Serialize">tAccordion.Serialize</a></b>() RETURNS STRING<br> Serialize an accordion structure</td>
 </tr>
 </table>
 <br><h2>Types</h2>
 <a id="tAccordion"> </a><h3>tAccordion</h3>
-<tt>TYPE <b>tAccordion</b> RECORD &lt;anonymous wc_accordion R3&gt;<table border="0" cellpadding="0" cellspacing="0" class="member"><tr>
+<tt>TYPE <b>tAccordion</b> RECORD<table border="0" cellpadding="0" cellspacing="0" class="member"><tr>
 <td>    </td>
 <td><table border="0" cellpadding="0" cellspacing="0" class="member">
 <tr><td>title STRING</td></tr>
@@ -55,9 +55,26 @@
 <dd></dd>
 <dd><dl></dl></dd>
 </dl>
+<h3>Methods</h3>
+<h3><a id="tAccordion.Serialize">Serialize</a></h3>
+<tt>FUNCTION <b>Serialize</b>() RETURNS STRING</tt><dl>
+<dd>
+<p> Serialize an accordion structure</p>
+<p>
+        <span><pre> define r_acc tAccordion,
+   p_json string
+ let p_json = r_acc.Serialize()</pre></span>
+      </p>
+</dd>
+<dd><dl>
+<dt><b>Returns:</b></dt>
+<dd>JSON string of accordion structure<br>
+</dd>
+</dl></dd>
+</dl>
 <hr>
 <a id="tSection"> </a><h3>tSection</h3>
-<tt>TYPE <b>tSection</b> RECORD &lt;anonymous wc_accordion R1&gt;<table border="0" cellpadding="0" cellspacing="0" class="member"><tr>
+<tt>TYPE <b>tSection</b> RECORD<table border="0" cellpadding="0" cellspacing="0" class="member"><tr>
 <td>    </td>
 <td><table border="0" cellpadding="0" cellspacing="0" class="member">
 <tr><td>name STRING</td></tr>
@@ -69,38 +86,16 @@
 </dl>
 <hr>
 <h2>Functions</h2>
-<a id="Init"> </a><h3>Init</h3>
+<h3><a id="Init">Init</a></h3>
 <tt>FUNCTION <b>Init</b>()</tt><dl>
 <dd>
-<p> Initialize</p>
+<p> Initialize the module</p>
 <p>
       <span><pre> call wc_accordion.Init()</pre></span>
     </p>
 </dd>
 <dd><dl></dl></dd>
 </dl>
-<hr>
-<a id="Serialize"> </a><h3>Serialize</h3>
-<tt>FUNCTION <b>Serialize</b>(r_accordion <a href="#tAccordion">tAccordion</a>) RETURNS STRING</tt><dl>
-<dd>
-<p> Serialize an accordion structure</p>
-<p>
-      <span><pre> define r_acc tAccordion,
-   p_json string
- let p_json = wc_jqaccordion.Serialize(r_acc.*)</pre></span>
-    </p>
-</dd>
-<dd><dl>
-<dt><b>Parameters:</b></dt>
-<dd>
-<code>r_accordion</code> - Accordion instance<br>
-</dd>
-<dt><b>Returns:</b></dt>
-<dd>JSON string of accordion structure<br>
-</dd>
-</dl></dd>
-</dl>
-<hr>
 <table BORDER="0" CELLPADDING="0" CELLSPACING="3" SUMMARY=""><tr>
 <td><a href="../../overview-summary.html">Overview</a></td>
 <td><a href="package-summary.html">Package</a></td>

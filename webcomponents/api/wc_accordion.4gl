@@ -15,9 +15,15 @@ public type
   end record
 
 
+
+
+#
+# CLASS METHODS
+#
+
 #
 #! Init
-#+ Initialize
+#+ Initialize the module
 #+
 #+ @code
 #+ call wc_accordion.Init()
@@ -28,11 +34,14 @@ end function
 
 
 
+
 #
-#! Serialize
+# OBJECT METHODS
+#
+
+#
+#! tAccordion::Serialize
 #+ Serialize an accordion structure
-#+
-#+ @param r_accordion   Accordion instance
 #+
 #+ @returnType string
 #+ @return JSON string of accordion structure
@@ -40,11 +49,11 @@ end function
 #+ @code
 #+ define r_acc tAccordion,
 #+   p_json string
-#+ let p_json = wc_jqaccordion.Serialize(r_acc.*)
+#+ let p_json = r_acc.Serialize()
 #
-public function Serialize(r_accordion tAccordion) returns string
+public function (this tAccordion) Serialize() returns string
   
-  return util.JSON.stringify(r_accordion)
+  return util.JSON.stringify(this)
   
 end function
 

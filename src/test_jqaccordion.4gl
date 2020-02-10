@@ -45,27 +45,27 @@ public function Test()
   let r_acc.title = "jqAccordion Test"
   let r_acc.narrative = "This is a test for a jqAccordion widget"
   call test_accordion.Load(r_acc.sections, 1)
-  let p_jqaccordion = wc_jqaccordion.Serialize(r_acc.*)
+  let p_jqaccordion = r_acc.Serialize()
   
   -- Interact
   open window w_test with form "test_jqaccordion"
   input by name p_jqaccordion attributes(unbuffered, without defaults)
     on action collapsible attribute(text="Collapsible")
-      call wc_jqaccordion.Collapsible(r_acc.*, TRUE)
+      call r_acc.Collapsible(TRUE)
     on action not_collapsible attribute(text="Not Collapsible")
-      call wc_jqaccordion.Collapsible(r_acc.*, FALSE)
+      call r_acc.Collapsible(FALSE)
     on action icons attribute(text="Icons")
-      call wc_jqaccordion.Icons(r_acc.*, "ui-icon-arrow-1-s", "ui-icon-arrow-1-n")
+      call r_acc.Icons("ui-icon-arrow-1-s", "ui-icon-arrow-1-n")
     on action one_icon attribute(text="One Icon")
-      call wc_jqaccordion.Icons(r_acc.*, "ui-icon-mail-closed", "")
+      call r_acc.Icons("ui-icon-mail-closed", "")
     on action no_icons attribute(text="No Icons")
-      call wc_jqaccordion.Icons(r_acc.*, "", "")
+      call r_acc.Icons("", "")
     on action data1 attribute(text="Load Set 1")
       call test_accordion.Load(r_acc.sections, 1)
-      let p_jqaccordion = wc_jqaccordion.Serialize(r_acc.*)
+      let p_jqaccordion = r_acc.Serialize()
     on action data2 attribute(text="Load Set 2")
       call test_accordion.Load(r_acc.sections, 2)
-      let p_jqaccordion = wc_jqaccordion.Serialize(r_acc.*)
+      let p_jqaccordion = r_acc.Serialize()
   end input
   close window w_test
 

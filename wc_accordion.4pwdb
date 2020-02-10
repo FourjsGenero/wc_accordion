@@ -1,95 +1,97 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<WorkspaceDatabase fileContentsEncoding="UTF-8" version="2.0">
-<File m="package-info" n="webcomponents/api/package-info.4gl" ts="20180921094152870"/>
-<File m="package-info" n="src/package-info.4gl" ts="20180921094152859"/>
-<File m="overview" n="overview.4gl" ts="20180921195604153"/>
-<File m="test_accordion" n="src/test_accordion.4gl" ts="20180919144348221">
+<WorkspaceDatabase fileContentsEncoding="UTF-8" version="3.0">
+<File n="webcomponents/api/package-info.4gl" s="2" ts="20200203120905701"/>
+<File n="src/package-info.4gl" s="2" ts="20200203120905765"/>
+<File n="overview.4gl" s="1" ts="20200203120905619">
+<![CDATA[An error occurred during the project database update: the file 'overview.4gl' contains errors]]>
+</File>
+<File n="src/test_accordion.4gl" s="2" ts="20200207164143520">
 <Dep t="webcomponents/api/wc_accordion.4gl"/>
-<Fct c="17" el="86" l="60" n="Load(a_sections DYNAMIC ARRAY OF unknown,p_set INTEGER)" t="F" v="pub"/>
+<Fct c="17" el="86" l="60" n="Load(a_sections DYNAMIC ARRAY OF RECORD,p_set INTEGER)" t="F" v="pub"/>
 <Fct c="17" el="52" l="29" n="Test()" t="F" v="pub">
 <Call c="8" l="36" n="Setup" t="F"/>
 <Call c="8" l="42" n="Load" t="F"/>
-<Call c="34" i="wc_accordion" l="43" n="Serialize" t="F"/>
+<Call c="27" l="43" n="Serialize" t="F"/>
 <Call c="8" l="50" n="Teardown" t="F"/>
 </Fct>
-<Fct c="18" el="22" l="21" n="Teardown()" t="F"/>
-<Fct c="18" el="15" l="14" n="Setup()" t="F"/>
+<Fct c="18" el="22" l="21" n="Teardown()" t="F" v="prv"/>
+<Fct c="18" el="15" l="14" n="Setup()" t="F" v="prv"/>
 </File>
-<File m="test_jqaccordion" n="src/test_jqaccordion.4gl" ts="20180905115538474">
+<File n="src/test_jqaccordion.4gl" s="2" ts="20200207164746428">
 <Dep t="webcomponents/api/wc_accordion.4gl"/>
 <Dep t="src/test_accordion.4gl"/>
 <Dep t="webcomponents/api/wc_jqaccordion.4gl"/>
 <Fct c="17" el="74" l="32" n="Test()" t="F" v="pub">
-<Call c="8" l="39" n="Setup" p="src/test_accordion.4gl" t="F"/>
+<Call c="8" l="39" n="Setup" t="F"/>
 <Call c="23" i="wc_jqaccordion" l="40" n="Create" t="F"/>
-<Call c="23" i="test_accordion" l="47" n="Load" p="src/test_accordion.4gl" t="F"/>
-<Call c="38" i="wc_jqaccordion" l="48" n="Serialize" t="F"/>
-<Call c="27" i="wc_jqaccordion" l="54" n="Collapsible" p="webcomponents/api/wc_jqaccordion.4gl" t="F"/>
-<Call c="27" i="wc_jqaccordion" l="56" n="Collapsible" p="webcomponents/api/wc_jqaccordion.4gl" t="F"/>
-<Call c="27" i="wc_jqaccordion" l="58" n="Icons" p="webcomponents/api/wc_jqaccordion.4gl" t="F"/>
-<Call c="27" i="wc_jqaccordion" l="60" n="Icons" p="webcomponents/api/wc_jqaccordion.4gl" t="F"/>
-<Call c="27" i="wc_jqaccordion" l="62" n="Icons" p="webcomponents/api/wc_jqaccordion.4gl" t="F"/>
-<Call c="27" i="test_accordion" l="64" n="Load" p="src/test_accordion.4gl" t="F"/>
-<Call c="42" i="wc_jqaccordion" l="65" n="Serialize" t="F"/>
-<Call c="27" i="test_accordion" l="67" n="Load" p="src/test_accordion.4gl" t="F"/>
-<Call c="42" i="wc_jqaccordion" l="68" n="Serialize" t="F"/>
-<Call c="8" l="72" n="Teardown" p="src/test_accordion.4gl" t="F"/>
+<Call c="23" i="test_accordion" l="47" n="Load" t="F"/>
+<Call c="29" l="48" n="Serialize" t="F"/>
+<Call c="18" l="54" n="Collapsible" t="F"/>
+<Call c="18" l="56" n="Collapsible" t="F"/>
+<Call c="18" l="58" n="Icons" t="F"/>
+<Call c="18" l="60" n="Icons" t="F"/>
+<Call c="18" l="62" n="Icons" t="F"/>
+<Call c="27" i="test_accordion" l="64" n="Load" t="F"/>
+<Call c="33" l="65" n="Serialize" t="F"/>
+<Call c="27" i="test_accordion" l="67" n="Load" t="F"/>
+<Call c="33" l="68" n="Serialize" t="F"/>
+<Call c="8" l="72" n="Teardown" t="F"/>
 </Fct>
-<Fct c="18" el="24" l="23" n="Teardown()" t="F"/>
-<Fct c="18" el="17" l="16" n="Setup()" t="F"/>
+<Fct c="18" el="24" l="23" n="Teardown()" t="F" v="prv"/>
+<Fct c="18" el="17" l="16" n="Setup()" t="F" v="prv"/>
 </File>
-<File m="test_treecordion" n="src/test_treecordion.4gl" ts="20180905120958952">
+<File n="src/test_treecordion.4gl" s="2" ts="20200207160535234">
 <Dep t="webcomponents/api/wc_treecordion.4gl"/>
-<Fct c="10" el="248" l="199" n="Item_Load(r_tree unknown)" t="F" v="pub">
-<Call c="41" i="wc_treecordion" l="212" n="Item_Add" p="webcomponents/api/wc_treecordion.4gl" t="F"/>
-<Call c="41" i="wc_treecordion" l="214" n="Item_Add" p="webcomponents/api/wc_treecordion.4gl" t="F"/>
-<Call c="41" i="wc_treecordion" l="216" n="Item_Add" p="webcomponents/api/wc_treecordion.4gl" t="F"/>
-<Call c="41" i="wc_treecordion" l="217" n="Item_Add" p="webcomponents/api/wc_treecordion.4gl" t="F"/>
-<Call c="41" i="wc_treecordion" l="218" n="Item_Add" p="webcomponents/api/wc_treecordion.4gl" t="F"/>
-<Call c="41" i="wc_treecordion" l="220" n="Item_Add" p="webcomponents/api/wc_treecordion.4gl" t="F"/>
-<Call c="41" i="wc_treecordion" l="222" n="Item_Add" p="webcomponents/api/wc_treecordion.4gl" t="F"/>
-<Call c="41" i="wc_treecordion" l="245" n="Item_Add" p="webcomponents/api/wc_treecordion.4gl" t="F"/>
-<Call c="41" i="wc_treecordion" l="246" n="Item_Add" p="webcomponents/api/wc_treecordion.4gl" t="F"/>
+<Fct c="10" el="242" l="193" n="Item_Load(r_tree RECORD)" t="F" v="pub">
+<Call c="33" l="206" n="Item_Add" t="F"/>
+<Call c="33" l="208" n="Item_Add" t="F"/>
+<Call c="33" l="210" n="Item_Add" t="F"/>
+<Call c="33" l="211" n="Item_Add" t="F"/>
+<Call c="33" l="212" n="Item_Add" t="F"/>
+<Call c="33" l="214" n="Item_Add" t="F"/>
+<Call c="33" l="216" n="Item_Add" t="F"/>
+<Call c="33" l="239" n="Item_Add" t="F"/>
+<Call c="33" l="240" n="Item_Add" t="F"/>
 </Fct>
-<Fct c="10" el="192" l="144" n="Node_Load(d_root om.DomNode)" t="F" v="pub">
-<Call c="41" i="wc_treecordion" l="156" n="Node_Add" p="webcomponents/api/wc_treecordion.4gl" t="F"/>
-<Call c="41" i="wc_treecordion" l="158" n="Node_Add" p="webcomponents/api/wc_treecordion.4gl" t="F"/>
-<Call c="41" i="wc_treecordion" l="160" n="Node_Add" p="webcomponents/api/wc_treecordion.4gl" t="F"/>
-<Call c="41" i="wc_treecordion" l="161" n="Node_Add" p="webcomponents/api/wc_treecordion.4gl" t="F"/>
-<Call c="41" i="wc_treecordion" l="162" n="Node_Add" p="webcomponents/api/wc_treecordion.4gl" t="F"/>
-<Call c="41" i="wc_treecordion" l="164" n="Node_Add" p="webcomponents/api/wc_treecordion.4gl" t="F"/>
-<Call c="41" i="wc_treecordion" l="166" n="Node_Add" p="webcomponents/api/wc_treecordion.4gl" t="F"/>
-<Call c="41" i="wc_treecordion" l="189" n="Node_Add" p="webcomponents/api/wc_treecordion.4gl" t="F"/>
-<Call c="41" i="wc_treecordion" l="190" n="Node_Add" p="webcomponents/api/wc_treecordion.4gl" t="F"/>
+<Fct c="10" el="186" l="138" n="Node_Load(d_root om.DomNode)" t="F" v="pub">
+<Call c="41" i="wc_treecordion" l="150" n="Node_Add" t="F"/>
+<Call c="41" i="wc_treecordion" l="152" n="Node_Add" t="F"/>
+<Call c="41" i="wc_treecordion" l="154" n="Node_Add" t="F"/>
+<Call c="41" i="wc_treecordion" l="155" n="Node_Add" t="F"/>
+<Call c="41" i="wc_treecordion" l="156" n="Node_Add" t="F"/>
+<Call c="41" i="wc_treecordion" l="158" n="Node_Add" t="F"/>
+<Call c="41" i="wc_treecordion" l="160" n="Node_Add" t="F"/>
+<Call c="41" i="wc_treecordion" l="183" n="Node_Add" t="F"/>
+<Call c="41" i="wc_treecordion" l="184" n="Node_Add" t="F"/>
 </Fct>
-<Fct c="17" el="137" l="29" n="Test(p_loadMethod STRING)" t="F" v="pub">
-<Call c="8" l="37" n="Setup" p="src/test_accordion.4gl" t="F"/>
+<Fct c="17" el="131" l="29" n="Test(p_loadMethod STRING)" t="F" v="pub">
+<Call c="8" l="37" n="Setup" t="F"/>
 <Call c="23" i="wc_treecordion" l="40" n="Create" t="F"/>
 <Call c="10" l="55" n="Node_Load" t="F"/>
 <Call c="10" l="57" n="Item_Load" t="F"/>
-<Call c="27" i="wc_treecordion" l="66" n="Set" p="webcomponents/api/wc_treecordion.4gl" t="F"/>
-<Call c="27" i="wc_treecordion" l="67" n="Item_Get" p="webcomponents/api/wc_treecordion.4gl" t="F"/>
-<Call c="27" i="wc_treecordion" l="71" n="Item_Get" p="webcomponents/api/wc_treecordion.4gl" t="F"/>
-<Call c="27" i="wc_treecordion" l="75" n="Show" p="webcomponents/api/wc_treecordion.4gl" t="F"/>
-<Call c="27" i="wc_treecordion" l="77" n="Show" p="webcomponents/api/wc_treecordion.4gl" t="F"/>
-<Call c="27" i="wc_treecordion" l="80" n="Expand" p="webcomponents/api/wc_treecordion.4gl" t="F"/>
-<Call c="27" i="wc_treecordion" l="82" n="Expand" p="webcomponents/api/wc_treecordion.4gl" t="F"/>
-<Call c="27" i="wc_treecordion" l="85" n="Collapse" p="webcomponents/api/wc_treecordion.4gl" t="F"/>
-<Call c="27" i="wc_treecordion" l="87" n="Collapse" p="webcomponents/api/wc_treecordion.4gl" t="F"/>
-<Call c="27" i="wc_treecordion" l="90" n="Item_Get" p="webcomponents/api/wc_treecordion.4gl" t="F"/>
-<Call c="27" i="wc_treecordion" l="95" n="Item_Get" p="webcomponents/api/wc_treecordion.4gl" t="F"/>
-<Call c="27" i="wc_treecordion" l="99" n="Item_Get" p="webcomponents/api/wc_treecordion.4gl" t="F"/>
-<Call c="25" i="wc_treecordion" l="103" n="IsVisible" p="webcomponents/api/wc_treecordion.4gl" t="F"/>
-<Call c="38" i="wc_treecordion" l="111" n="Item_Add" p="webcomponents/api/wc_treecordion.4gl" t="F"/>
-<Call c="27" i="wc_treecordion" l="114" n="Item_Update" p="webcomponents/api/wc_treecordion.4gl" t="F"/>
-<Call c="38" i="wc_treecordion" l="117" n="Item_Delete" p="webcomponents/api/wc_treecordion.4gl" t="F"/>
-<Call c="27" i="wc_treecordion" l="118" n="Item_Get" p="webcomponents/api/wc_treecordion.4gl" t="F"/>
-<Call c="8" l="135" n="Teardown" p="src/test_accordion.4gl" t="F"/>
+<Call c="19" l="66" n="Init" t="F"/>
+<Call c="27" l="67" n="Item_Get" t="F"/>
+<Call c="27" l="70" n="Item_Get" t="F"/>
+<Call c="19" l="73" n="Show" t="F"/>
+<Call c="19" l="75" n="Show" t="F"/>
+<Call c="19" l="78" n="Expand" t="F"/>
+<Call c="19" l="80" n="Expand" t="F"/>
+<Call c="19" l="83" n="Collapse" t="F"/>
+<Call c="19" l="85" n="Collapse" t="F"/>
+<Call c="27" l="88" n="Item_Get" t="F"/>
+<Call c="27" l="92" n="Item_Get" t="F"/>
+<Call c="27" l="95" n="Item_Get" t="F"/>
+<Call c="17" l="98" n="IsVisible" t="F"/>
+<Call c="30" l="106" n="Item_Add" t="F"/>
+<Call c="19" l="109" n="Item_Update" t="F"/>
+<Call c="30" l="112" n="Item_Delete" t="F"/>
+<Call c="27" l="113" n="Item_Get" t="F"/>
+<Call c="8" l="129" n="Teardown" t="F"/>
 </Fct>
-<Fct c="18" el="22" l="21" n="Teardown()" t="F"/>
-<Fct c="18" el="15" l="14" n="Setup()" t="F"/>
+<Fct c="18" el="22" l="21" n="Teardown()" t="F" v="prv"/>
+<Fct c="18" el="15" l="14" n="Setup()" t="F" v="prv"/>
 </File>
-<File m="main" n="src/main.4gl" ts="20180905115538850">
+<File n="src/main.4gl" s="2" ts="20200203120925684">
 <Dep t="src/test_accordion.4gl"/>
 <Dep t="src/test_jqaccordion.4gl"/>
 <Dep t="src/test_treecordion.4gl"/>
@@ -100,64 +102,34 @@
 <Call c="29" i="test_treecordion" l="87" n="Test" t="F"/>
 <Call c="12" l="89" n="Menu" t="F"/>
 </Fct>
-<Fct c="18" el="68" l="52" n="Menu()" t="F">
+<Fct c="18" el="68" l="52" n="Menu()" t="F" v="prv">
 <Call c="12" l="58" n="Run" t="F"/>
 <Call c="12" l="60" n="Run" t="F"/>
 <Call c="12" l="62" n="Run" t="F"/>
 <Call c="12" l="64" n="Run" t="F"/>
 </Fct>
-<Fct c="18" el="46" l="45" n="Teardown()" t="F"/>
-<Fct c="18" el="39" l="32" n="Setup()" t="F"/>
+<Fct c="18" el="46" l="45" n="Teardown()" t="F" v="prv"/>
+<Fct c="18" el="39" l="32" n="Setup()" t="F" v="prv"/>
 <Fct c="1" el="26" l="18" n="main()" t="F" v="pub">
 <Call c="8" l="24" n="Run" t="F"/>
 </Fct>
 </File>
-<File m="wc_accordion" n="webcomponents/api/wc_accordion.4gl" ts="20180924163303454">
-<Fct c="17" el="49" l="45" n="Serialize(r_accordion RECORD)" t="F" v="pub"/>
-<Fct c="17" el="27" l="25" n="Init()" t="F" v="pub"/>
+<File n="webcomponents/api/wc_accordion.4gl" s="2" ts="20200207164925137">
+<Fct c="17" el="33" l="31" n="Init()" t="F" v="pub"/>
 </File>
-<File m="wc_jqaccordion" n="webcomponents/api/wc_jqaccordion.4gl" ts="20180924163303477">
-<Fct c="17" el="113" l="109" n="Serialize(r_accordion RECORD)" t="F" v="pub"/>
-<Fct c="17" el="92" l="88" n="Icons(r_acc RECORD,p_closed STRING,p_open STRING)" t="F" v="pub"/>
-<Fct c="17" el="70" l="66" n="Collapsible(r_acc RECORD,p_collapse BOOLEAN)" t="F" v="pub"/>
-<Fct c="17" el="53" l="44" n="Create(p_field STRING)" t="F" v="pub"/>
+<File n="webcomponents/api/wc_jqaccordion.4gl" s="2" ts="20200207164844528">
+<Fct c="17" el="60" l="51" n="Create(p_field STRING)" t="F" v="pub"/>
 <Fct c="17" el="28" l="26" n="Init()" t="F" v="pub"/>
 </File>
-<File m="wc_treecordion" n="webcomponents/api/wc_treecordion.4gl" ts="20180924163303468">
-<Fct c="18" el="543" l="533" n="id_New(p_id STRING)" t="F"/>
-<Fct c="17" el="512" l="510" n="XML(r_tree RECORD)" t="F" v="pub"/>
-<Fct c="17" el="493" l="479" n="Node_Set(o_node om.DomNode,p_id STRING,p_key STRING,p_text STRING,p_image STRING,p_iconOpen STRING,p_iconClosed STRING,p_state STRING,p_content STRING)" t="F" v="pub"/>
-<Fct c="17" el="458" l="448" n="Node_Add(o_parent om.DomNode,p_id STRING,p_key STRING,p_text STRING,p_image STRING,p_iconOpen STRING,p_iconClosed STRING,p_state STRING,p_content STRING)" t="F" v="pub">
-<Call c="8" l="454" n="Node_Set" t="F"/>
+<File n="webcomponents/api/wc_treecordion.4gl" s="2" ts="20200207154913478">
+<Fct c="18" el="719" l="709" n="id_New(p_id STRING)" t="F" v="prv"/>
+<Fct c="17" el="151" l="141" n="Node_Add(o_parent om.DomNode,p_id STRING,p_key STRING,p_text STRING,p_image STRING,p_iconOpen STRING,p_iconClosed STRING,p_state STRING,p_content STRING)" t="F" v="pub">
+<Call c="15" l="147" n="Set" t="F"/>
+<Call c="17" l="149" n="Attach" t="F"/>
 </Fct>
-<Fct c="17" el="424" l="407" n="Node(r_tree RECORD,p_id STRING)" t="F" v="pub"/>
-<Fct c="17" el="395" l="377" n="Item_Update(r_tree RECORD,p_id STRING,p_key STRING,p_text STRING,p_image STRING,p_iconOpen STRING,p_iconClosed STRING,p_state STRING,p_content STRING)" t="F" v="pub">
-<Call c="16" l="383" n="Node" t="F"/>
-<Call c="8" l="390" n="Node_Set" t="F"/>
+<Fct c="17" el="117" l="104" n="Create(p_field STRING)" t="F" v="pub">
+<Call c="32" l="113" n="id_New" t="F"/>
 </Fct>
-<Fct c="17" el="352" l="328" n="Item_Get(r_tree RECORD,p_id STRING)" t="F" v="pub">
-<Call c="16" l="335" n="Node" t="F"/>
-<Call c="28" l="346" n="IsVisible" t="F"/>
-</Fct>
-<Fct c="17" el="311" l="282" n="Item_Delete(r_tree RECORD,p_id STRING)" t="F" v="pub">
-<Call c="16" l="291" n="Node" t="F"/>
-</Fct>
-<Fct c="17" el="268" l="227" n="Item_Add(r_tree RECORD,p_parentId STRING,p_id STRING,p_key STRING,p_text STRING,p_image STRING,p_iconOpen STRING,p_iconClosed STRING,p_state STRING,p_content STRING)" t="F" v="pub">
-<Call c="18" l="234" n="Node" t="F"/>
-<Call c="6" l="255" n="Node" t="F"/>
-<Call c="16" l="261" n="Node_Add" t="F"/>
-</Fct>
-<Fct c="17" el="202" l="200" n="Collapse(r_tree RECORD,p_id STRING)" t="F" v="pub"/>
-<Fct c="17" el="186" l="184" n="Expand(r_tree RECORD,p_id STRING)" t="F" v="pub"/>
-<Fct c="17" el="170" l="163" n="IsVisible(r_tree RECORD,p_id STRING)" t="F" v="pub"/>
-<Fct c="17" el="143" l="141" n="Show(r_tree RECORD,p_id STRING,p_show BOOLEAN)" t="F" v="pub"/>
-<Fct c="17" el="126" l="117" n="Set(r_tree RECORD)" t="F" v="pub">
-<Call c="77" l="124" n="XML" t="F"/>
-</Fct>
-<Fct c="17" el="102" l="92" n="Clear(r_tree RECORD)" t="F" v="pub"/>
-<Fct c="17" el="79" l="67" n="Create(p_field STRING)" t="F" v="pub">
-<Call c="32" l="75" n="id_New" t="F"/>
-</Fct>
-<Fct c="17" el="52" l="50" n="Init()" t="F" v="pub"/>
+<Fct c="17" el="89" l="87" n="Init()" t="F" v="pub"/>
 </File>
 </WorkspaceDatabase>
