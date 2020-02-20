@@ -18,15 +18,27 @@
     <Node path="wc_accordion.4pw/Project/WebComponents/wc_treecordion" type="pm/virtual-folder"/>
   </ExpandedNodes>
   <OpenDocuments>
-    <Document container="true" filePath="src/test_jqaccordion.4gl" locator="68:43" module="mod-ce3">
+    <Document container="true" filePath="webcomponents/api/wc_jqaccordion.4gl" locator="21:25" module="mod-ce3">
       <Data name="8" value="UTF-8"/>
     </Document>
-    <Document container="true" filePath="webcomponents/api/wc_jqaccordion.4gl" locator="67:1" module="mod-ce3">
+    <Document container="true" filePath="webcomponents/api/wc_accordion.4gl" locator="26:25" module="mod-ce3">
       <Data name="8" value="UTF-8"/>
     </Document>
-    <Document container="true" filePath="webcomponents/api/wc_accordion.4gl" locator="37:1" module="mod-ce3">
+    <Document container="true" filePath="src/test_treecordion.4gl" locator="39:63" module="mod-ce3">
+      <Data name="8" value="UTF-8"/>
+    </Document>
+    <Document container="true" filePath="src/test_treecordion.per" locator="27:64" module="mod-ce3">
+      <Data name="8" value="UTF-8"/>
+    </Document>
+    <Document container="true" filePath="webcomponents/wc_treecordion/wc_treecordion.html" locator="110:10" module="mod-ce3">
+      <Data name="8" value="UTF-8"/>
+    </Document>
+    <Document container="true" filePath="webcomponents/api/wc_treecordion.4gl" locator="1:1" module="mod-ce3">
+      <Data name="8" value="UTF-8"/>
+    </Document>
+    <Document container="true" filePath="webcomponents/wc_treecordion/wc_treecordion.js" locator="1:1" module="mod-ce3">
       <Data name="8" value="UTF-8"/>
     </Document>
   </OpenDocuments>
-  <CurrentDocument filePath="webcomponents/api/wc_accordion.4gl" module="mod-ce3"/>
+  <CurrentDocument filePath="webcomponents/wc_treecordion/wc_treecordion.html" module="mod-ce3"/>
 </WorkspaceViewState>

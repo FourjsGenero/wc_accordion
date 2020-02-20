@@ -389,7 +389,8 @@ public function (this tTree) Item_Add(p_parentID string, p_id string, p_key stri
   define
     r_item tItem
 
-  call r_item.Set(p_id, p_key, p_text, p_image, p_iconOpen, p_iconClosed, p_state, p_content)
+  -- Set Item record, use Tree default icons if not defined
+  call r_item.Set(p_id, p_key, p_text, p_image, NVL(p_iconOpen, this.iconOpen), NVL(p_iconClosed, this.iconClosed), p_state, p_content)
   return this.Item_Attach(p_parentID, r_item)
 
 end function

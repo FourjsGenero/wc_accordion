@@ -59,7 +59,7 @@ function html_Image(p_image)
   else
     p_path = p_path + '/' + p_image;
 
-  return ('<img src="' + p_path + '"/> ');
+  return ('<img src="' + p_path + '" class="icon"/> ');
 }
 
 
